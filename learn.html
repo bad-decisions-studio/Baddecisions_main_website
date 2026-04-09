@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Learn | Bad Decisions Studio</title>
-  <meta name="description" content="World-class education in Unreal Engine, AI, and creative technology. Premium courses and free YouTube tutorials from Bad Decisions Studio." />
+  <meta name="description" content="Learn Unreal Engine, AI, and creative technology through premium programs and widely shared free guides from Bad Decisions Studio." />
   <link rel="canonical" href="https://www.baddecisions.studio/learn" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" href="/favicon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Learn | Bad Decisions Studio">
-  <meta property="og:description" content="World-class education in Unreal Engine, AI, and creative technology.">
+  <meta property="og:description" content="Premium programs and free guides in Unreal Engine, AI, and creative technology.">
   <meta property="og:image" content="/og-image.png">
   <meta property="og:url" content="https://www.baddecisions.studio/learn">
   <meta property="og:site_name" content="Bad Decisions Studio">
@@ -18,9 +18,10 @@
   <meta name="twitter:title" content="Learn | Bad Decisions Studio">
   <meta name="twitter:image" content="/og-image.png">
   <meta name="theme-color" content="#080808">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Syne:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/assets/fonts-web/pp-editorial-ultralight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts-web/pp-editorial-ultralight-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts-web/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts-web/azeret-mono-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/globals.css" />
   <link rel="stylesheet" href="/css/style.css" />
   <script type="application/ld+json">
@@ -40,24 +41,436 @@
 </head>
 <body>
   <a href="#main-content" class="skip-nav">Skip to main content</a>
-  <!-- ─── HEADER ───────────────────────────────────────────────── -->
-  <header class="site-header">
-    <nav id="nav" aria-label="Primary">
-      <a href="/" class="site-logo" aria-label="Bad Decisions Studio home">
-        <img src="/assets/logo/bd-logo-horizontal-yellow.svg" alt="Bad Decisions Studio" class="site-logo-full" fetchpriority="high">
-      </a>
-      <ul class="nav-links" id="primary-links">
-        <li><a href="/learn.html">Learn</a></li>
-        <li><a href="/podcast.html">Podcast</a></li>
-        <li><a href="/careers.html">Work with us</a></li>
-      </ul>
-      <a href="https://ai.baddecisions.studio" target="_blank" rel="noopener noreferrer" class="nav-cta">Learn AI</a>
-      <button type="button" class="nav-mobile-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-links">
-        <span></span><span></span><span></span>
-      </button>
-    </nav>
-  </header>
-  <div style="padding-top: 80px;" id="main-content">
+
+  <!-- ─── NAV STYLES (scoped to .site-nav) ────────────────────── -->
+  <style>
+    /* ── Base ── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .site-nav.scrolled {
+      background: rgba(0,0,0,.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: rgba(255,255,255,.08);
+    }
+
+    /* ── Logo ── */
+    .site-nav .nav-logo {
+      font-family: var(--font-editorial, 'PP Editorial New', Georgia, serif);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--color-paper, #FBF9ED);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .site-nav .nav-logo .logo-bd {
+      color: var(--color-yellow, #FFEF7B);
+    }
+
+    /* ── Center links ── */
+    .site-nav .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+    }
+    .site-nav .nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .site-nav .nav-item > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,.5);
+      padding: 0 18px;
+      height: 100%;
+      text-decoration: none;
+      transition: color 150ms ease;
+      white-space: nowrap;
+    }
+    .site-nav .nav-item > a:hover {
+      color: #fff;
+    }
+    .site-nav .nav-item.active > a {
+      color: #fff;
+      border-bottom: 2px solid var(--color-yellow, #FFEF7B);
+    }
+
+    /* ── Chevron ── */
+    .site-nav .nav-chevron {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 200ms ease;
+    }
+    .site-nav .nav-item:hover .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* ── Dropdown ── */
+    .site-nav .nav-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      min-width: 260px;
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,.1);
+      border-top: 2px solid var(--color-yellow, #FFEF7B);
+      border-radius: 0 0 4px 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms cubic-bezier(0.16,1,0.3,1), transform 200ms cubic-bezier(0.16,1,0.3,1);
+      padding: 8px 0;
+    }
+    .site-nav .nav-item:hover .nav-dropdown {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .site-nav .nav-dropdown-header {
+      font-family: var(--font-mono, 'Azeret Mono', monospace);
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,.2);
+      padding: 8px 18px 10px;
+    }
+    .site-nav .nav-dd-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      text-decoration: none;
+      transition: background 150ms ease;
+    }
+    .site-nav .nav-dd-item:last-child { border-bottom: none; }
+    .site-nav .nav-dd-item:hover { background: rgba(255,255,255,.04); }
+
+    .site-nav .nav-dd-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+    .site-nav .nav-dd-icon.icon-ai      { background: rgba(255,239,123,.08); }
+    .site-nav .nav-dd-icon.icon-ue       { background: rgba(58,93,91,.2); }
+    .site-nav .nav-dd-icon.icon-free     { background: rgba(255,255,255,.05); }
+    .site-nav .nav-dd-icon.icon-services { background: rgba(58,93,91,.2); }
+    .site-nav .nav-dd-icon.icon-sponsor  { background: rgba(255,239,123,.08); }
+    .site-nav .nav-dd-icon.icon-roles    { background: rgba(255,255,255,.05); }
+
+    .site-nav .nav-dd-label {
+      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+      transition: color 150ms ease;
+    }
+    .site-nav .nav-dd-item:hover .nav-dd-label { color: var(--color-yellow, #FFEF7B); }
+
+    .site-nav .nav-dd-sub {
+      font-family: var(--font-mono, 'Azeret Mono', monospace);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,.3);
+      line-height: 1.3;
+      margin-top: 2px;
+    }
+
+    /* ── CTA ── */
+    .site-nav .nav-cta-btn {
+      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-size: 12px;
+      font-weight: 700;
+      color: #000;
+      background: var(--color-yellow, #FFEF7B);
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+    .site-nav .nav-cta-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(255,239,123,.25);
+    }
+
+    /* ── Mobile toggle ── */
+    .site-nav .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .site-nav .nav-burger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--color-paper, #FBF9ED);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .site-nav .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .site-nav .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .site-nav .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── Mobile overlay ── */
+    .nav-mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 99;
+      padding: 80px 32px 32px;
+      overflow-y: auto;
+    }
+    .nav-mobile-overlay.open { display: block; }
+
+    .nav-mobile-overlay .mobile-link {
+      display: block;
+      font-family: var(--font-editorial, 'PP Editorial New', Georgia, serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--color-paper, #FBF9ED);
+      text-decoration: none;
+      padding: 16px 0;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.3s ease, transform 0.3s ease, color 0.15s ease;
+    }
+    .nav-mobile-overlay.open .mobile-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .nav-mobile-overlay .mobile-link:hover { color: var(--color-yellow, #FFEF7B); }
+
+    .site-nav .mobile-sublinks {
+      padding: 0 0 12px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .site-nav .mobile-sublinks.education-sub {
+      border-left: 1px solid rgba(255,255,255,.08);
+    }
+    .site-nav .mobile-sublinks.work-sub {
+      border-left: 2px solid var(--color-yellow, #FFEF7B);
+    }
+    .site-nav .mobile-sublinks a {
+      display: block;
+      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      padding: 10px 16px;
+      transition: color 0.15s ease;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.3s ease, transform 0.3s ease, color 0.15s ease;
+    }
+    .nav-mobile-overlay.open .mobile-sublinks a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .site-nav .mobile-sublinks a:hover { color: #fff; }
+
+    .site-nav .mobile-cta {
+      display: inline-block;
+      margin-top: 32px;
+      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-size: 13px;
+      font-weight: 700;
+      color: #000;
+      background: var(--color-yellow, #FFEF7B);
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .site-nav .nav-delay-0 { transition-delay: 0ms; }
+    .site-nav .nav-delay-1 { transition-delay: 50ms; }
+    .site-nav .nav-delay-2 { transition-delay: 100ms; }
+    .site-nav .nav-delay-3 { transition-delay: 150ms; }
+    .site-nav .nav-delay-4 { transition-delay: 200ms; }
+    .site-nav .nav-delay-5 { transition-delay: 250ms; }
+    .site-nav .nav-delay-6 { transition-delay: 300ms; }
+    .site-nav .nav-delay-7 { transition-delay: 350ms; }
+    .site-nav .nav-delay-8 { transition-delay: 400ms; }
+    .site-nav .nav-delay-9 { transition-delay: 450ms; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .site-nav { padding: 0 20px; }
+      .site-nav .nav-center,
+      .site-nav .nav-cta-btn { display: none; }
+      .site-nav .nav-burger { display: flex; }
+    }
+    @media (min-width: 769px) {
+      .nav-mobile-overlay { display: none !important; }
+    }
+  </style>
+
+  <!-- ─── NAV HTML ────────────────────────────────────────────── -->
+  <nav class="site-nav" id="nav" aria-label="Primary">
+
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="Bad Decisions Studio home">BADDECISIONS <span class="logo-bd">BD</span></a>
+
+    <!-- Center links -->
+    <ul class="nav-center">
+      <li class="nav-item">
+        <a href="/podcast">Podcast</a>
+      </li>
+      <li class="nav-item">
+        <a href="/learn">
+          Learn
+          <svg class="nav-chevron" viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg>
+        </a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-header">Programs</div>
+          <a href="https://ai.baddecisions.studio" target="_self" class="nav-dd-item">
+            <div class="nav-dd-icon icon-ai">🤖</div>
+            <div>
+              <div class="nav-dd-label">AI Programs</div>
+              <div class="nav-dd-sub">Workflows · Tools · Strategy</div>
+            </div>
+          </a>
+          <a href="https://learn.baddecisions.studio" target="_self" class="nav-dd-item">
+            <div class="nav-dd-icon icon-ue">🎮</div>
+            <div>
+              <div class="nav-dd-label">Unreal Engine</div>
+              <div class="nav-dd-sub">UE5 · Cinematic · Real-Time</div>
+            </div>
+          </a>
+          <a href="/learn" class="nav-dd-item">
+            <div class="nav-dd-icon icon-free">📚</div>
+            <div>
+              <div class="nav-dd-label">Free Learning</div>
+              <div class="nav-dd-sub">Start Here · No Cost</div>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="/careers">
+          Work With Us
+          <svg class="nav-chevron" viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg>
+        </a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-header">Collaborate</div>
+          <a href="/careers#services" class="nav-dd-item">
+            <div class="nav-dd-icon icon-services">⚡</div>
+            <div>
+              <div class="nav-dd-label">Services</div>
+              <div class="nav-dd-sub">Production · AI · Consulting</div>
+            </div>
+          </a>
+          <a href="/careers#sponsorships" class="nav-dd-item">
+            <div class="nav-dd-icon icon-sponsor">🎙️</div>
+            <div>
+              <div class="nav-dd-label">Sponsorships</div>
+              <div class="nav-dd-sub">Show · Instagram · YouTube</div>
+            </div>
+          </a>
+          <a href="/careers#roles" class="nav-dd-item">
+            <div class="nav-dd-icon icon-roles">💼</div>
+            <div>
+              <div class="nav-dd-label">Open Roles</div>
+              <div class="nav-dd-sub">4 Positions · Remote & Dubai</div>
+            </div>
+          </a>
+        </div>
+      </li>
+    </ul>
+
+    <!-- CTA -->
+    <a href="https://ai.baddecisions.studio" target="_self" class="nav-cta-btn">Learn AI →</a>
+
+    <!-- Mobile burger -->
+    <button type="button" class="nav-burger" id="navBurger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile overlay -->
+  <div class="nav-mobile-overlay" id="navMobileOverlay">
+    <a href="/podcast" class="mobile-link nav-delay-0">Podcast</a>
+    <a href="/learn" class="mobile-link nav-delay-1">Learn</a>
+    <div class="mobile-sublinks education-sub">
+      <a href="https://ai.baddecisions.studio" target="_self" class="nav-delay-2">AI Programs</a>
+      <a href="https://learn.baddecisions.studio" target="_self" class="nav-delay-3">Unreal Engine</a>
+      <a href="/learn" class="nav-delay-4">Free Learning</a>
+    </div>
+    <a href="/careers" class="mobile-link nav-delay-5">Work With Us</a>
+    <div class="mobile-sublinks work-sub">
+      <a href="/careers#services" class="nav-delay-6">Services</a>
+      <a href="/careers#sponsorships" class="nav-delay-7">Sponsorships</a>
+      <a href="/careers#roles" class="nav-delay-8">Open Roles</a>
+    </div>
+    <a href="https://ai.baddecisions.studio" target="_self" class="mobile-cta nav-delay-9">Learn AI →</a>
+  </div>
+
+  <!-- Nav script -->
+  <script>
+  (function() {
+    var burger = document.getElementById('navBurger');
+    var overlay = document.getElementById('navMobileOverlay');
+    if (burger && overlay) {
+      burger.addEventListener('click', function() {
+        var isOpen = burger.classList.toggle('open');
+        overlay.classList.toggle('open');
+        burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      overlay.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+          burger.classList.remove('open');
+          overlay.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+  })();
+  </script>
+  <main class="page-main" id="main-content">
     <!-- ─── LEARN ──────────────────────────────────────────────────── -->
   <section id="learn">
     <div class="learn-premium-section">
@@ -65,7 +478,7 @@
         <div class="section-header reveal">
           <div class="section-header-left">
             <div class="label section-label">Education</div>
-            <h2 class="heading-section">Learn to build<br><em>extraordinary</em> things.</h2>
+            <h1 class="heading-section">Learn to build<br><em>extraordinary</em> things.</h1>
           </div>
         </div>
       </div>
@@ -78,7 +491,7 @@
           </div>
           <div class="premium-duo">
             <a href="https://learn.baddecisions.studio" target="_blank" rel="noopener noreferrer" class="premium-card premium-card-ue">
-              <video class="premium-card-video premium-card-cycle" autoplay muted playsinline data-videos="/assets/video/ue-virtual-prod.mp4,/assets/video/ue-metahuman.mp4,/assets/video/ue-world-building.mp4">
+              <video class="premium-card-video premium-card-cycle" data-autoplay muted playsinline data-videos="/assets/video/ue-virtual-prod.mp4,/assets/video/ue-metahuman.mp4,/assets/video/ue-world-building.mp4" poster="/assets/podcast/ep77.jpg">
                 <source src="/assets/video/ue-virtual-prod.mp4" type="video/mp4">
               </video>
               <div class="premium-card-overlay"></div>
@@ -96,12 +509,12 @@
               </div>
             </a>
             <a href="https://ai.baddecisions.studio" target="_blank" rel="noopener noreferrer" class="premium-card premium-card-ai">
-              <video class="premium-card-video" autoplay muted loop playsinline>
+              <video class="premium-card-video" data-autoplay muted loop playsinline poster="/assets/podcast/ep79.jpg">
                 <source src="/assets/video/hero-video.mp4" type="video/mp4">
               </video>
               <div class="premium-card-overlay premium-card-overlay-ai"></div>
               <div class="premium-card-content">
-                <span class="playlist-badge mb-sm" style="background: #a78bfa;">New Program</span>
+                <span class="playlist-badge playlist-badge--violet mb-sm">New Program</span>
                 <div class="premium-card-ai-icon">AI</div>
                 <h2>The Ultimate<br>AI for Creatives<br><em>Program</em></h2>
                 <p>Master AI tools for creative workflows. From prompt engineering to building custom pipelines - learn to work with AI, not against it.</p>
@@ -132,7 +545,7 @@
           <img src="https://i.ytimg.com/vi/R8dINxLFfRU/maxresdefault.jpg" alt="UE5 Beginner Series" class="learn-hero-bg" loading="lazy">
           <div class="learn-hero-overlay"></div>
           <div class="learn-hero-content">
-            <span class="playlist-badge">Most Popular · Free</span>
+            <span class="playlist-badge">Most Popular Series</span>
             <h2>UE5 Beginner Series</h2>
             <p>Start from zero and build cinematic Star Wars worlds in Unreal Engine 5. The most-watched free UE5 series on YouTube - 2.5M+ views.</p>
             <span class="learn-hero-cta">Watch Now ▶</span>
@@ -190,20 +603,20 @@
       </div>
     </div>
   </section>
-  </div>
+  </main>
   <!-- ─── FOOTER ──────────────────────────────────────────────────── -->
   <footer>
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="footer-brand-lockup">
             <img src="/assets/logo/bd-mark.svg" alt="BD" width="34" height="34" loading="lazy">
             <div>
               <div class="footer-brand-name">Bad Decisions Studio</div>
               <div class="footer-brand-location">Vancouver · Dubai</div>
             </div>
           </div>
-          <p>Creative technology education and content. Teaching millions to build with Unreal Engine, AI, and emerging tools.</p>
+          <p>Premium podcast, education, and creative technology work for artists, founders, and ambitious teams.</p>
           <div class="footer-social-row">
             <a href="https://www.instagram.com/badxstudio/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Instagram"><img src="/assets/platforms/instagram.svg" alt="Instagram" width="16" height="16" loading="lazy"></a>
             <a href="https://www.youtube.com/@badxstudio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="YouTube"><img src="/assets/platforms/youtube.svg" alt="YouTube" width="16" height="16" loading="lazy"></a>
@@ -218,7 +631,10 @@
         <div>
           <div class="footer-col-title">Studio</div>
           <ul class="footer-links">
-            <li><a href="#about">About Us</a></li>
+            <li><a href="/#about">About Us</a></li>
+            <li><a href="/podcast">Podcast</a></li>
+            <li><a href="/learn">Learn</a></li>
+            <li><a href="/careers">Work With Us</a></li>
             <li><a href="mailto:create@baddecisions.studio">Contact</a></li>
           </ul>
         </div>
@@ -232,12 +648,21 @@
           </ul>
         </div>
         <div>
-          <div class="footer-col-title">Education</div>
+          <div class="footer-col-title">Learn</div>
           <ul class="footer-links">
             <li><a href="https://learn.baddecisions.studio" target="_blank" rel="noopener noreferrer">Ultimate UE Program</a></li>
             <li><a href="https://ai.baddecisions.studio" target="_blank" rel="noopener noreferrer">AI Program</a></li>
             <li><a href="https://www.youtube.com/@badxstudio" target="_blank" rel="noopener noreferrer">Free Tutorials</a></li>
             <li><a href="https://academy.baddecisions.studio" target="_blank" rel="noopener noreferrer">Student Login</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Work With Us</div>
+          <ul class="footer-links">
+            <li><a href="/careers#services">Start a Project</a></li>
+            <li><a href="/careers#sponsorships">Sponsor the Show</a></li>
+            <li><a href="/careers#roles">Open Roles</a></li>
+            <li><a href="mailto:create@baddecisions.studio">General Inquiry</a></li>
           </ul>
         </div>
       </div>

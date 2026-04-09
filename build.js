@@ -8,7 +8,6 @@ const path = require('path');
 
 const ROOT = __dirname;
 const TEMPLATES_DIR = path.join(ROOT, 'templates');
-const SECTIONS_DIR = path.join(ROOT, 'sections');
 
 // Regex to match <div data-include="/sections/xyz.html"></div>
 const INCLUDE_RE = /<div\s+data-include="(\/sections\/[^"]+)"\s*><\/div>/g;
@@ -47,15 +46,33 @@ function buildPage(templateFile) {
   // 4. Inject globals.css before style.css
   html = html.replace(STYLE_LINK, GLOBALS_INJECT);
 
-  // 5. Write to root
+  // 5. Write to output (preserving subdirectory structure)
   const outPath = path.join(ROOT, templateFile);
+  const outDir = path.dirname(outPath);
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(outPath, html, 'utf8');
   console.log(`  Built: ${templateFile}`);
 }
 
+// Recursively find all .html files in templates/
+function findTemplates(dir, prefix) {
+  prefix = prefix || '';
+  var results = [];
+  var entries = fs.readdirSync(dir, { withFileTypes: true });
+  entries.forEach(function(entry) {
+    var rel = prefix ? prefix + '/' + entry.name : entry.name;
+    if (entry.isDirectory()) {
+      results = results.concat(findTemplates(path.join(dir, entry.name), rel));
+    } else if (entry.name.endsWith('.html')) {
+      results.push(rel);
+    }
+  });
+  return results;
+}
+
 // Run
 console.log('Building BDS pages...');
-const templates = fs.readdirSync(TEMPLATES_DIR).filter(f => f.endsWith('.html'));
+var templates = findTemplates(TEMPLATES_DIR);
 
 if (templates.length === 0) {
   console.error('No templates found in templates/');

@@ -1,13 +1,13 @@
 # Bad Decisions Studio — Website
 
-Production marketing site for [Bad Decisions Studio](https://www.baddecisions.studio), focused on education, podcast discovery, and creative technology brand storytelling.
+Production marketing site for [Bad Decisions Studio](https://www.baddecisions.studio), focused on three core pathways: podcast, learning, and working with the studio.
 
 ## Stack
 
 - **HTML/CSS/JS** — vanilla, no framework
 - **Vercel** — hosting, CDN, security headers, serverless functions
 - **Upstash Redis** — optional podcast episode cache (via Vercel Marketplace)
-- **Google Fonts** — Cormorant Garamond, Inter, Azeret Mono (+ PP Editorial New when self-hosted)
+- **Local Web Fonts** — PP Editorial New, Inter, Azeret Mono
 
 ## Project Structure
 
@@ -30,7 +30,7 @@ Production marketing site for [Bad Decisions Studio](https://www.baddecisions.st
 │   ├── footer.html       Links, socials, copyright
 │   ├── learn.html        Premium courses + free series grid
 │   ├── podcast.html      Featured ep, recent eps, listen-on, guest grid
-│   └── careers.html      Services, trust logos, open positions
+│   └── careers.html      Commercial hub: services, sponsorships, roles, inquiry routes
 ├── css/
 │   ├── globals.css       Design system tokens, typography, buttons, badges, utilities
 │   └── style.css         Section-specific layouts and responsive rules
@@ -38,7 +38,8 @@ Production marketing site for [Bad Decisions Studio](https://www.baddecisions.st
 │   └── main.js           Nav toggle, scroll reveal, word rotation, podcast API, lazy video
 ├── api/
 │   └── podcast.js        Serverless — Apple Podcasts + YouTube Data API + Redis cache
-├── assets/               Logos, videos, thumbnails, platform icons
+├── assets/               Logos, videos, thumbnails, platform icons, source font files
+├── assets/fonts-web/     Production web fonts used by the site
 ├── llms.txt              Machine-readable brand summary
 ├── sitemap.xml           All public pages
 ├── vercel.json           Build command, cache headers, security headers
@@ -53,7 +54,7 @@ Production marketing site for [Bad Decisions Studio](https://www.baddecisions.st
 | Home | `/` | Hero (with featured strip), pillars, stats, highlights, podcast landing, about, sponsors, footer |
 | Podcast | `/podcast` | Header, featured episode, recent episodes, listen-on platforms, notable guests (peach bg), footer |
 | Learn | `/learn` | Premium programs, featured playlist, free series grid, footer |
-| Careers | `/careers` | Services grid, trust logos, open positions, CTA, footer |
+| Careers | `/careers` | Work-with-us hero, pathways, services, proof, sponsorships, roles, inquiry routes, final CTA |
 
 ## Development
 
@@ -73,8 +74,8 @@ Do NOT edit root HTML files directly — they are build outputs.
 
 ## CSS Architecture
 
-- **`globals.css`** (724 lines) — Design tokens, custom properties, context classes (`.bg-dark`, `.bg-light`, `.bg-green`), typography (`.heading-hero`, `.heading-section`, `.heading-card`, `.label`, `.body-text`, `.meta-text`), buttons (`.btn-primary`, `.btn-secondary`, `.btn-teal`, `.btn-peach`, `.btn-light`), badges (`.badge--episode`, `.badge--new`, `.badge--free`, `.badge--live`), cards, stats, utilities, spacing helpers, scroll reveal, reduced-motion support
-- **`style.css`** (3,419 lines) — Nav, hero, featured scroller, pillars, podcast, learn, about, sponsors grid, careers, footer, all responsive breakpoints
+- **`globals.css`** — Design tokens, local `@font-face` loading, typography primitives, buttons, badges, utilities, focus states, and reduced-motion support
+- **`style.css`** — Section-specific layouts for nav, hero, pillars, podcast, learn, work-with-us, sponsors, about, footer, and responsive rules
 
 ### Design Tokens (from brand review)
 
@@ -113,7 +114,8 @@ Sections rotate through brand colors — never all the same background:
 - Skip-nav link with `#main-content` target
 - `rel="noopener noreferrer"` on all external links
 - `prefers-reduced-motion` support (CSS + JS)
-- Lazy video autoplay via IntersectionObserver
+- Local font preloads plus `font-display: swap`
+- Lazy below-the-fold video playback via IntersectionObserver
 
 ## Environment Variables
 
