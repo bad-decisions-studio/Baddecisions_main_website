@@ -10,6 +10,22 @@ function initBDS() {
     }, { passive: true });
   }
 
+  // ─── MOBILE NAV ──────────────────────────────────────────────
+  var mobileToggle = document.getElementById('mobileToggle');
+  if (mobileToggle && nav) {
+    mobileToggle.addEventListener('click', function() {
+      nav.classList.toggle('nav-open');
+      document.body.classList.toggle('nav-lock');
+    });
+    // Close menu when a link is tapped
+    nav.querySelectorAll('.nav-links a, .nav-cta').forEach(function(link) {
+      link.addEventListener('click', function() {
+        nav.classList.remove('nav-open');
+        document.body.classList.remove('nav-lock');
+      });
+    });
+  }
+
   // ─── SCROLL REVEAL ───────────────────────────────────────────
   var reveals = document.querySelectorAll('.reveal');
   var revealObserver = new IntersectionObserver(function(entries) {
