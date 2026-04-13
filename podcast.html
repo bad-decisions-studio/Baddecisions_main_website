@@ -50,34 +50,29 @@
     /* ── Base ── */
     .site-nav {
       position: fixed;
-      top: 12px; left: 20px; right: 20px;
+      top: 0; left: 0; right: 0;
       z-index: 100;
-      max-width: 1240px;
-      margin: 0 auto;
-      height: 68px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 18px 0 20px;
-      background: rgba(8,8,8,.84);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 16px;
-      box-shadow: 0 14px 38px rgba(0,0,0,.24);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      padding: 0 32px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
     }
     .site-nav.scrolled {
-      background: rgba(8,8,8,.92);
-      border-color: rgba(255,239,123,.12);
-      box-shadow: 0 18px 46px rgba(0,0,0,.3);
-      transform: translateY(1px);
+      background: rgba(5,5,5,0.85);
+      border-bottom-color: rgba(245,242,237,0.06);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
     }
 
     /* ── Logo ── */
     .site-nav .nav-logo {
       display: inline-flex;
       align-items: center;
+      gap: 10px;
       text-decoration: none;
       flex-shrink: 0;
     }
@@ -121,11 +116,11 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-family: var(--font-body);
       font-size: 13.5px;
       font-weight: 550;
       letter-spacing: 0.01em;
-      color: rgba(255,255,255,.55);
+      color: var(--color-fog);
       padding: 0 15px;
       height: 100%;
       text-decoration: none;
@@ -134,11 +129,10 @@
     }
     .site-nav .nav-item > a:hover,
     .site-nav .nav-item:hover > a {
-      color: #fff;
+      color: var(--color-cream);
     }
     .site-nav .nav-item.active > a {
-      color: #fff;
-      border-bottom: 2px solid var(--color-yellow, #FFEF7B);
+      color: var(--color-cream);
     }
 
     /* ── Chevron ── */
@@ -166,8 +160,8 @@
       transform: translateX(-50%) translateY(-8px);
       min-width: 220px;
       background: rgba(10,10,10,.97);
-      border: 1px solid rgba(255,255,255,.1);
-      border-top: 2px solid var(--color-yellow, #FFEF7B);
+      border: 1px solid rgba(245,242,234,0.08);
+      border-top: 2px solid var(--color-yellow);
       border-radius: 0 0 10px 10px;
       box-shadow: 0 20px 50px rgba(0,0,0,.4);
       opacity: 0;
@@ -191,34 +185,30 @@
     .site-nav .nav-dd-item:hover { background: rgba(255,255,255,.06); }
 
     .site-nav .nav-dd-label {
-      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-family: var(--font-body);
       font-size: 13px;
       font-weight: 600;
-      color: rgba(255,255,255,.7);
+      color: var(--color-fog);
       line-height: 1.2;
       transition: color 120ms ease;
     }
-    .site-nav .nav-dd-item:hover .nav-dd-label { color: var(--color-yellow, #FFEF7B); }
+    .site-nav .nav-dd-item:hover .nav-dd-label { color: var(--color-yellow); }
 
     /* ── CTA ── */
     .site-nav .nav-cta-btn {
-      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-family: var(--font-body);
       font-size: 12.5px;
       font-weight: 700;
       letter-spacing: 0.01em;
-      color: var(--color-yellow, #FFEF7B);
-      background: rgba(255,239,123,.06);
-      border: 1px solid rgba(255,239,123,.18);
-      padding: 11px 18px;
-      border-radius: 12px;
+      color: var(--color-void);
+      background: var(--color-yellow);
+      padding: 10px 20px;
+      border-radius: var(--radius-button);
       text-decoration: none;
       flex-shrink: 0;
-      transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, color 150ms ease, border-color 150ms ease;
+      transition: transform 150ms ease, box-shadow 150ms ease;
     }
     .site-nav .nav-cta-btn:hover {
-      color: #000;
-      background: var(--color-yellow, #FFEF7B);
-      border-color: var(--color-yellow, #FFEF7B);
       transform: translateY(-1px);
       box-shadow: 0 8px 20px rgba(255,239,123,.16);
     }
@@ -234,15 +224,14 @@
       height: 40px;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,.02);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 10px;
+      background: transparent;
+      border: none;
     }
     .site-nav .nav-burger span {
       display: block;
       width: 22px;
       height: 1.5px;
-      background: var(--color-paper, #FBF9ED);
+      background: var(--color-cream);
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
     .site-nav .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -254,7 +243,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: #000;
+      background: var(--color-void);
       z-index: 99;
       padding: 80px 32px 32px;
       overflow-y: auto;
@@ -263,10 +252,10 @@
 
     .nav-mobile-overlay .mobile-link {
       display: block;
-      font-family: var(--font-editorial, 'PP Editorial New', Georgia, serif);
+      font-family: var(--font-editorial);
       font-size: 26px;
       font-weight: 400;
-      color: var(--color-paper, #FBF9ED);
+      color: var(--color-cream);
       text-decoration: none;
       padding: 16px 0;
       opacity: 0;
@@ -277,7 +266,7 @@
       opacity: 1;
       transform: translateY(0);
     }
-    .nav-mobile-overlay .mobile-link:hover { color: var(--color-yellow, #FFEF7B); }
+    .nav-mobile-overlay .mobile-link:hover { color: var(--color-yellow); }
 
     .site-nav .mobile-sublinks {
       padding: 0 0 12px 20px;
@@ -286,20 +275,19 @@
       gap: 0;
     }
     .site-nav .mobile-sublinks.education-sub {
-      border-left: 1px solid rgba(255,255,255,.08);
+      border-left: 1px solid var(--color-stone);
     }
     .site-nav .mobile-sublinks.work-sub {
-      border-left: 2px solid var(--color-yellow, #FFEF7B);
+      border-left: 2px solid var(--color-yellow);
     }
     .site-nav .mobile-sublinks a {
       display: block;
-      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-family: var(--font-body);
       font-size: 12px;
       font-weight: 500;
-      color: rgba(255,255,255,.5);
+      color: var(--color-fog);
       text-decoration: none;
       padding: 10px 16px;
-      transition: color 0.15s ease;
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.3s ease, transform 0.3s ease, color 0.15s ease;
@@ -308,18 +296,18 @@
       opacity: 1;
       transform: translateY(0);
     }
-    .site-nav .mobile-sublinks a:hover { color: #fff; }
+    .site-nav .mobile-sublinks a:hover { color: var(--color-cream); }
 
     .site-nav .mobile-cta {
       display: inline-block;
       margin-top: 32px;
-      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      font-family: var(--font-body);
       font-size: 13px;
       font-weight: 700;
-      color: #000;
-      background: var(--color-yellow, #FFEF7B);
+      color: var(--color-void);
+      background: var(--color-yellow);
       padding: 14px 32px;
-      border-radius: 4px;
+      border-radius: var(--radius-button);
       text-decoration: none;
     }
     .site-nav .nav-delay-0 { transition-delay: 0ms; }
@@ -336,17 +324,12 @@
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .site-nav {
-        top: 10px;
-        left: 12px;
-        right: 12px;
-        height: 60px;
-        padding: 0 14px;
-        border-radius: 14px;
+        padding: 0 16px;
+        height: 56px;
       }
       .site-nav .nav-center,
       .site-nav .nav-cta-btn { display: none; }
       .site-nav .nav-burger { display: flex; }
-      .site-nav .nav-logo img { height: 22px; }
     }
     @media (min-width: 769px) {
       .nav-mobile-overlay { display: none !important; }
@@ -356,7 +339,7 @@
   <!-- ─── NAV HTML ────────────────────────────────────────────── -->
   <nav class="site-nav" id="nav" aria-label="Primary">
 
-    <!-- Logo -->
+    <!-- Logo: BD mark + text -->
     <a href="/" class="nav-logo" aria-label="Bad Decisions Studio home">
       <img src="/assets/logo/bd-logo-horizontal-yellow.svg" alt="Bad Decisions Studio" width="168" height="26" loading="eager">
     </a>
@@ -403,7 +386,7 @@
     </ul>
 
     <!-- CTA -->
-    <a href="https://ai.baddecisions.studio" target="_self" class="nav-cta-btn">Learn AI →</a>
+    <a href="https://ai.baddecisions.studio" target="_self" class="nav-cta-btn">Learn AI &rarr;</a>
 
     <!-- Mobile burger -->
     <button type="button" class="nav-burger" id="navBurger" aria-label="Toggle navigation" aria-expanded="false">
@@ -426,14 +409,28 @@
       <a href="/work-with-us/media-partnerships" class="nav-delay-7">Media Partnerships</a>
       <a href="/work-with-us/open-roles" class="nav-delay-8">Open Roles</a>
     </div>
-    <a href="https://ai.baddecisions.studio" target="_self" class="mobile-cta nav-delay-9">Learn AI →</a>
+    <a href="https://ai.baddecisions.studio" target="_self" class="mobile-cta nav-delay-9">Learn AI &rarr;</a>
   </div>
 
   <!-- Nav script -->
   <script>
   (function() {
+    var nav = document.getElementById('nav');
     var burger = document.getElementById('navBurger');
     var overlay = document.getElementById('navMobileOverlay');
+
+    // Scroll state
+    if (nav) {
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 40) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }, { passive: true });
+    }
+
+    // Mobile toggle
     if (burger && overlay) {
       burger.addEventListener('click', function() {
         var isOpen = burger.classList.toggle('open');
@@ -619,20 +616,18 @@
       <div class="footer-top">
         <div class="footer-brand">
           <div class="footer-brand-lockup">
-            <img src="/assets/logo/bd-mark.svg" alt="BD" width="34" height="34" loading="lazy">
-            <div>
-              <div class="footer-brand-name">Bad Decisions Studio</div>
-              <div class="footer-brand-location">Vancouver · Dubai</div>
-            </div>
+            <img src="/assets/logo/bd-mark.svg" alt="BD" class="footer-bd-mark" width="28" height="28" loading="lazy">
+            <div class="footer-brand-text">BAD DECISIONS STUDIO</div>
           </div>
-          <p>Premium podcast, education, and creative technology work for artists, founders, and ambitious teams.</p>
+          <p class="footer-tagline">Premium podcast, education, and creative technology work for artists, founders, and ambitious teams.</p>
+          <div class="footer-brand-location">Vancouver &middot; Dubai</div>
           <div class="footer-social-row">
             <a href="https://www.instagram.com/badxstudio/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Instagram"><svg class="pi pi-sm"><use href="/assets/icons/platforms.svg#icon-instagram"/></svg></a>
             <a href="https://www.youtube.com/@badxstudio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="YouTube"><svg class="pi pi-sm"><use href="/assets/icons/platforms.svg#icon-youtube"/></svg></a>
             <a href="https://open.spotify.com/show/12jUe4lIJgxE4yst7rrfmW" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Spotify"><svg class="pi pi-sm"><use href="/assets/icons/platforms.svg#icon-spotify"/></svg></a>
             <a href="https://podcasts.apple.com/us/podcast/bad-decisions-podcast/id1677462934" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Apple Podcasts"><svg class="pi pi-sm"><use href="/assets/icons/platforms.svg#icon-apple-podcasts"/></svg></a>
-            <a href="https://x.com/badxstudio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="X"><svg class="pi pi-sm" style="color:#FBF9ED"><use href="/assets/icons/platforms.svg#icon-x"/></svg></a>
-            <a href="https://www.tiktok.com/@badxstudio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="TikTok"><svg class="pi pi-sm" style="color:#FBF9ED"><use href="/assets/icons/platforms.svg#icon-tiktok"/></svg></a>
+            <a href="https://x.com/badxstudio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="X"><svg class="pi pi-sm"><use href="/assets/icons/platforms.svg#icon-x"/></svg></a>
+            <a href="https://www.tiktok.com/@badxstudio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="TikTok"><svg class="pi pi-sm"><use href="/assets/icons/platforms.svg#icon-tiktok"/></svg></a>
             <a href="https://ca.linkedin.com/company/badxstudio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="LinkedIn"><svg class="pi pi-sm"><use href="/assets/icons/platforms.svg#icon-linkedin"/></svg></a>
             <a href="https://discord.gg/bWCBcmqYh9" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Discord"><svg class="pi pi-sm"><use href="/assets/icons/platforms.svg#icon-discord"/></svg></a>
           </div>
@@ -666,7 +661,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-copyright">© 2026 Bad Decisions Studio. All rights reserved.</div>
+        <div class="footer-copyright">&copy; 2026 Bad Decisions Studio. All rights reserved.</div>
       </div>
     </div>
   </footer>

@@ -23,15 +23,15 @@ Production marketing site for [Bad Decisions Studio](https://www.baddecisions.st
 │       ├── media-partnerships.html
 │       └── open-roles.html
 ├── sections/             Shared HTML partials (content blocks)
-│   ├── nav.html          Nav with dropdowns, mobile overlay, skip-link
-│   ├── hero.html         Hero with video + integrated featured logo strip
-│   ├── pillars.html      Three-pillar value prop (Watch / Learn / Work With Us)
-│   ├── stats.html        Key metrics band
-│   ├── highlights.html   Three video highlight cards
-│   ├── podcast-landing.html   Podcast CTA with iPhone mockup
-│   ├── about.html        "Why We Exist" — mission statement + contact
-│   ├── sponsors.html     Partner logo grid (5-col)
-│   ├── footer.html       Links, socials, copyright
+│   ├── nav.html          Edge-to-edge nav with dropdowns, mobile overlay, scroll blur
+│   ├── hero.html         Full-bleed cinematic video hero with bottom-anchored content
+│   ├── pillars.html      Three image cards on tan paper (Watch / Learn / Work With Us)
+│   ├── stats.html        Key metrics on green background
+│   ├── highlights.html   Three video highlight cards on diagonal gradient
+│   ├── podcast-landing.html   Podcast CTA with iPhone mockup on ember gradient
+│   ├── about.html        "Why We Exist" on brown — mission statement + contact
+│   ├── sponsors.html     Partner logo grid on mesh gradient
+│   ├── footer.html       4-column footer with BD mark, links, socials, copyright
 │   ├── learn.html        Premium courses + free series grid
 │   ├── podcast.html      Featured ep, recent eps, listen-on, guest grid
 │   ├── work-with-us.html Commercial hub: pathways, services, proof, partnerships, roles
@@ -40,10 +40,10 @@ Production marketing site for [Bad Decisions Studio](https://www.baddecisions.st
 │       ├── media-partnerships.html
 │       └── open-roles.html
 ├── css/
-│   ├── globals.css       Design system tokens, @font-face, typography, buttons, badges
+│   ├── globals.css       Design tokens, @font-face, typography, buttons, badges, bg treatments
 │   └── style.css         Section-specific layouts and responsive rules
 ├── js/
-│   └── main.js           Nav, scroll reveal, word rotation, podcast API, lazy video
+│   └── main.js           Nav scroll, reveal animations, podcast API, lazy video
 ├── api/
 │   └── podcast.js        Serverless — Apple Podcasts + YouTube Data API + Redis cache
 ├── assets/
@@ -52,7 +52,6 @@ Production marketing site for [Bad Decisions Studio](https://www.baddecisions.st
 │   ├── logo/             SVG logos and marks
 │   ├── clients/          Client/partner logos
 │   ├── featured/         "As Featured On" logos
-│   ├── platforms/        Social/podcast platform icons (legacy, see icons/)
 │   ├── founders/         Founder photos
 │   ├── podcast/          Podcast cover art, iPhone mockup
 │   └── video/            Hero video, highlight reels, course previews
@@ -90,12 +89,60 @@ Do NOT edit root HTML files directly — they are build outputs.
 
 `build.js` reads each template from `templates/` (including subdirectories like `work-with-us/`), replaces `<div data-include="/sections/...">` markers with actual section content, injects `globals.css`, and writes final HTML to the project root.
 
+## Design System
+
+### Color Tokens
+
+The design system uses a warm-shifted neutral scale (never pure greys) plus 6 brand colors:
+
+| Token | Value | Use |
+|-------|-------|-----|
+| `--color-yellow` | `#FFEF7B` | CTAs, accent italic, eyebrows |
+| `--color-blue` | `#97C7CD` | Podcast/show accent |
+| `--color-green` | `#3A5D5B` | Education, trust, buttons on light |
+| `--color-tan` | `#FBF9ED` | Light/paper sections |
+| `--color-brown` | `#937E67` | Origin story, warmth |
+| `--color-peach` | `#C17E59` | Warm CTA accent |
+| `--color-void` | `#050505` | Primary dark background |
+| `--color-ink` | `#0E0D0B` | Slightly lighter dark bg |
+| `--color-soot` | `#1A1814` | Card backgrounds on dark |
+| `--color-charcoal` | `#222019` | Surface elevation |
+| `--color-stone` | `#2E2B26` | Borders, UI lines |
+| `--color-ash` | `#6B6560` | Body text on light (15px+, wt 500) |
+| `--color-fog` | `#A8A29E` | Body text on dark |
+| `--color-bone` | `#D6D0C8` | Body text on green/brown |
+| `--color-cream` | `#F5F2EA` | Headings on dark |
+
+### Typography
+
+| Role | Font | Token |
+|------|------|-------|
+| Display headings | PP Editorial New | `--font-editorial` |
+| Body text | Inter | `--font-body` |
+| Labels, meta | Azeret Mono | `--font-mono` |
+
+### Section Backgrounds
+
+Homepage rotates through distinct backgrounds — no two adjacent sections share the same treatment:
+
+1. **Void** — hero (cinematic video + gradient overlay)
+2. **Tan paper** — pillars (paper texture SVG noise)
+3. **Diagonal gradient** — highlights (void → soot → green tint)
+4. **Ember** — podcast landing (warm bottom glow)
+5. **Mesh gradient** — sponsors (dual radial gradients)
+6. **Brown** — about (origin story)
+
+### Background Treatment Classes
+
+`globals.css` provides atmospheric utility classes: `.bg-glow-gold`, `.bg-glow-blue`, `.bg-glow-peach`, `.bg-diagonal`, `.bg-vignette`, `.bg-horizon`, `.bg-ember`, `.bg-mesh`, `.bg-topwash`, `.bg-paper-texture`
+
+### Image Treatment Classes
+
+`.img-cinematic` (desaturated, darkened) and `.img-warm` (warm cinematic with sepia) with hover restore.
+
 ## Navigation
 
-Desktop: logo left, 3 center links (Watch, Learn with dropdown, Work With Us with dropdown), CTA right. Dropdowns appear on hover with animated entrance. Mobile: full-screen overlay with staggered link animations.
-
-**Education dropdown:** AI Programs, Unreal Engine, Free Learning
-**Work With Us dropdown:** Services, Media Partnerships, Open Roles
+Edge-to-edge fixed nav (64px). Transparent on load, dark backdrop-blur on scroll. Logo left (SVG), 3 center links (Watch, Learn dropdown, Work With Us dropdown), yellow CTA right. Mobile: full-screen overlay with staggered PP Editorial links.
 
 ## Icon System
 
@@ -109,38 +156,6 @@ Available icons: `icon-youtube`, `icon-spotify`, `icon-apple-podcasts`, `icon-in
 
 Size classes: `.pi-sm` (16px), `.pi-md` (20px), `.pi-lg` (24px), `.pi-xl` (32px)
 
-## CSS Architecture
-
-- **`globals.css`** (821 lines) — Design tokens, `@font-face`, typography classes, buttons, badges, cards, stats, icon utilities, scroll reveal, reduced-motion support
-- **`style.css`** (3,484 lines) — Nav, hero, featured scroller, pillars, podcast, learn, work-with-us, sponsors, about, footer, media partnerships page styles, responsive breakpoints
-
-### Design Tokens
-
-| Token | Value |
-|-------|-------|
-| `--color-void` | `#000000` |
-| `--color-paper` | `#FBF9ED` |
-| `--color-yellow` | `#FFEF7B` |
-| `--color-teal-dark` | `#3A5D5B` |
-| `--color-teal-light` | `#97C7CD` |
-| `--color-peach` | `#C17E59` |
-| `--color-brown` | `#937E67` |
-| `--radius-button` | `4px` |
-| `--radius-badge` | `2px` |
-| `--radius-card` | `4px` |
-| `--font-editorial` | PP Editorial New |
-| `--font-body` | Inter |
-| `--font-mono` | Azeret Mono |
-
-### Section Background Rotation
-
-Sections rotate through brand colors — never all the same background:
-1. `#000000` — void (hero, main content)
-2. `#FFEF7B` — yellow (stats bands, media partnerships hero)
-3. `#3A5D5B` — teal (audience sections, CTAs)
-4. `#FBF9ED` — paper (partnership formats, light inversions)
-5. `#C17E59` — peach (guest sections)
-
 ## SEO & Accessibility
 
 - Canonical tags on all pages
@@ -153,7 +168,6 @@ Sections rotate through brand colors — never all the same background:
 - `prefers-reduced-motion` support (CSS + JS)
 - Local font preloads with `font-display: swap`
 - Lazy video autoplay via IntersectionObserver
-- Sub-pages (`/work-with-us/*`) use `noindex,nofollow` until ready
 
 ## Environment Variables
 
