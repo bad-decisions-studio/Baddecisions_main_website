@@ -307,9 +307,32 @@
         padding: 0 16px;
         height: 56px;
       }
+      .site-nav .nav-logo img {
+        height: 20px;
+      }
       .site-nav .nav-center,
       .site-nav .nav-cta-btn { display: none; }
       .site-nav .nav-burger { display: flex; }
+      .nav-mobile-overlay {
+        padding: 72px 20px 28px;
+      }
+      .nav-mobile-overlay .mobile-link {
+        font-size: clamp(22px, 7vw, 26px);
+        padding: 14px 0;
+      }
+      .site-nav .mobile-sublinks {
+        padding: 2px 0 10px 16px;
+      }
+      .site-nav .mobile-sublinks a {
+        font-size: 13px;
+        padding: 9px 14px;
+      }
+      .site-nav .mobile-cta {
+        width: 100%;
+        text-align: center;
+        margin-top: 28px;
+        padding: 14px 18px;
+      }
     }
     @media (min-width: 769px) {
       .nav-mobile-overlay { display: none !important; }

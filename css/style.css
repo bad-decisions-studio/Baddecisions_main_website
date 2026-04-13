@@ -1457,9 +1457,15 @@
     @media (max-width: 768px) {
       .pod-listen-buttons {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        width: 100%;
       }
-      .pod-listen-btn { width: 100%; max-width: 280px; }
+      .pod-listen-btn {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        justify-content: flex-start;
+      }
     }
 
     /* ─── PODCAST GUESTS SECTION ──────────────────────────────────── */
@@ -2009,6 +2015,33 @@
       .learn-hero-content p { display: none; }
       .learn-grid { grid-template-columns: repeat(2, 1fr); }
       .learn-premium-info { padding: 28px; }
+      .premium-card {
+        min-height: 400px;
+        padding: 32px 24px;
+      }
+      .premium-card-logo {
+        height: 72px;
+        margin-bottom: 20px;
+      }
+      .premium-card-ai-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+      .premium-card p {
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+      .premium-card-stats {
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        margin-bottom: 22px;
+      }
+      .learn-card-info {
+        padding: 14px 16px;
+      }
+      .learn-card-info h4 {
+        font-size: 16px;
+      }
     }
 
     /* ─── WHO WE ARE / SHOWREEL ──────────────────────────────────── */
@@ -2574,7 +2607,10 @@
     }
     @media (max-width: 768px) {
       .pod-hero { aspect-ratio: 16/9; }
-      .pod-hero-content { padding: 24px; }
+      .pod-hero-content {
+        padding: 24px;
+        max-width: 100%;
+      }
       .pod-hero-content h2 { font-size: 24px; }
       .pod-ep-thumb { width: 80px; }
       .pod-showcase-card { flex: 0 0 240px; }
@@ -3103,6 +3139,9 @@
       .workhub-final-cta {
         padding: 32px 20px;
       }
+      .workhub-card-link {
+        margin-top: 18px;
+      }
     }
 
     /* ─── RESPONSIVE ───────────────────────────────────────────────── */
@@ -3205,6 +3244,20 @@
       .about-videos-row { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
       .footer-social-row { flex-wrap: wrap; }
+      .footer-top {
+        gap: 28px;
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+      }
+      .footer-tagline {
+        max-width: none;
+      }
+      .footer-col-title {
+        margin-bottom: 14px;
+      }
+      .footer-links {
+        gap: 10px;
+      }
       .ep-featured-card { padding: 32px; }
       .pillar-card-content { padding: 16px 20px 20px; }
       .services-grid { grid-template-columns: 1fr; }
@@ -3218,4 +3271,99 @@
       .course-stats-row { flex-direction: column; gap: 20px; }
       .course-pricing { flex-direction: column; }
       .schedule-days { flex-wrap: wrap; }
+      .hero-content {
+        padding-top: 68px;
+      }
+      .hero-body {
+        margin-bottom: 28px;
+      }
+      .featured-logo-slot {
+        margin: 0 14px;
+      }
+      .podcast-page-header {
+        margin-bottom: 34px;
+      }
+      .podcast-page-header .heading-section {
+        margin-bottom: 16px;
+      }
+      .podcast-page-copy {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .pod-hero-content {
+        padding: 18px;
+      }
+      .pod-hero-content h2 {
+        font-size: 20px;
+        margin: 12px 0 14px;
+      }
+      .pod-hero-cta,
+      .playlist-badge {
+        font-size: 11px;
+      }
+      .pod-showcase-name {
+        padding: 14px 16px 16px;
+      }
+      .pod-showcase-name h4 {
+        font-size: 15px;
+      }
+      .pod-guests-section {
+        padding: 64px 0;
+      }
+      .pod-guests-header {
+        margin-bottom: 28px;
+      }
+      .learn-grid {
+        grid-template-columns: 1fr;
+      }
+      .learn-row-header {
+        margin-bottom: 16px;
+      }
+      .learn-hero-content {
+        padding: 18px;
+      }
+      .learn-hero-content h2 {
+        font-size: 20px;
+        margin: 12px 0 0;
+      }
+      .premium-card {
+        min-height: 360px;
+        padding: 24px 18px;
+      }
+      .premium-card h2 {
+        font-size: clamp(26px, 8vw, 34px);
+      }
+      .premium-card p {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .premium-card-stats {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .workhub-section {
+        padding: 28px 0 18px;
+      }
+      .workhub-hero {
+        padding: 32px 0 12px;
+      }
+      .workhub-hero-copy {
+        font-size: 15px;
+      }
+      .workhub-path-card,
+      .workhub-final-cta {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+      .footer-top {
+        gap: 24px;
+      }
+      .footer-social-btn {
+        width: 40px;
+        height: 40px;
+      }
+      .footer-bottom {
+        justify-content: flex-start;
+      }
     }
