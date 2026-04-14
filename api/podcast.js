@@ -13,12 +13,12 @@
 
 import { Redis } from '@upstash/redis';
 
-const YT_CHANNEL_ID = 'UCOQ6GGRyyu8S3jahnUz2zHw';
+const YT_PODCAST_PLAYLIST_ID = 'PLIn-yd4vnXbg49orM_CENby6YNGK8k-U0';
 const YT_API_KEY = process.env.YOUTUBE_API_KEY || '';
 const MAX_RESULTS = 8;
 
 // Redis cache TTLs
-const CACHE_KEY = 'bds:podcast:feed:v1';
+const CACHE_KEY = 'bds:podcast:feed:v2';
 const CACHE_TTL_SECONDS = 3600;        // 1 hour — fresh
 const STALE_TTL_SECONDS = 86400;       // 24 hours — serve stale while refreshing
 
@@ -127,29 +127,12 @@ async function fetchJson(url, label) {
   return response.json();
 }
 
-async function getUploadsPlaylistId() {
-  const channelUrl = 'https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id='
-    + YT_CHANNEL_ID + '&key=' + YT_API_KEY;
-  const channelData = await fetchJson(channelUrl, 'YouTube channels');
-  const items = channelData.items || [];
-  const uploadsId = items[0] && items[0].contentDetails && items[0].contentDetails.relatedPlaylists
-    ? items[0].contentDetails.relatedPlaylists.uploads
-    : '';
-
-  if (!uploadsId) {
-    throw new Error('YouTube uploads playlist not found');
-  }
-
-  return uploadsId;
-}
-
 async function fetchFromYouTube() {
   if (!YT_API_KEY) return fallbackPayload();
 
-  const uploadsId = await getUploadsPlaylistId();
   const playlistUrl =
     'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails,status'
-    + '&playlistId=' + uploadsId
+    + '&playlistId=' + YT_PODCAST_PLAYLIST_ID
     + '&maxResults=' + MAX_RESULTS
     + '&key=' + YT_API_KEY;
 
