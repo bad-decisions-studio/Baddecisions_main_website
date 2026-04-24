@@ -13,7 +13,7 @@ section {
 .section-header,
 .learn-section-header,
 .pod-section-header {
-  margin-bottom: clamp(40px, 6vw, 64px);
+  margin-bottom: var(--section-header-gap);
 }
 
 .section-header-left {
@@ -24,7 +24,7 @@ section {
   padding-bottom: 6px;
 }
 
-:where(
+:is(
   .card,
   .nl-shell,
   .wwu-card,
@@ -32,42 +32,416 @@ section {
   .ep-card,
   .tutorial-card,
   .testimonial-card,
-  .founder-card,
-  .about-video-card,
-  .about-founder-card,
-  .tool-card,
-  .social-card,
-  .pod-guest-card,
-  .pod-showcase-card,
-  .interview-card,
-  .services-card,
-  .career-card,
-  .workhub-path-card,
-  .workhub-service-card,
-  .workhub-engagement-card,
-  .workhub-sponsor-card,
-  .workhub-inquiry-card
-) {
-  box-shadow: var(--shadow-card);
+	  .founder-card,
+	  .about-video-card,
+	  .about-founder-card,
+	  .tool-card,
+	  .pod-showcase-card,
+	  .interview-card,
+	  .services-card,
+	  .mp-why-card,
+	  .career-card
+	) {
+  border-color: var(--ctx-border);
+  box-shadow: var(--shadow-card-quiet);
 }
 
-:where(
+:is(
   .card,
-  .wwu-card,
+	  .wwu-card,
+	  .premium-card,
+	  .ep-card,
+	  .pod-showcase-card,
+	  .interview-card,
+	  .services-card,
+	  .mp-why-card,
+	  .career-card
+	):hover {
+  box-shadow: var(--shadow-card-quiet);
+}
+
+.mp-why-card {
+  padding: 28px;
+  border-radius: var(--radius-card);
+}
+
+.mp-why-card-head {
+  margin-bottom: 28px;
+}
+
+:is(
+  [data-page="home"] .pillar-panel,
+  [data-page="home"] .nl-shell,
+  [data-page="home"] .about-video-card--feature,
   .premium-card,
-  .ep-card,
-  .pod-guest-card,
-  .pod-showcase-card,
-  .interview-card,
-  .services-card,
-  .career-card,
-  .workhub-path-card,
-  .workhub-service-card,
-  .workhub-engagement-card,
-  .workhub-sponsor-card,
-  .workhub-inquiry-card
+  .pod-hero,
+  .services-card--hero
+) {
+  border-color: color-mix(in srgb, var(--ctx-border, rgba(245, 242, 234, 0.08)) 78%, var(--ctx-label, var(--color-yellow)) 22%);
+  box-shadow: var(--shadow-card-feature);
+}
+
+:is(
+  [data-page="home"] .pillar-panel,
+  [data-page="home"] .nl-shell,
+  [data-page="home"] .about-video-card--feature,
+  .premium-card,
+  .pod-hero,
+  .services-card--hero
 ):hover {
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: var(--shadow-card-feature-hover);
+}
+
+/* Option A media frame system: clean, readable, border-led. */
+:is(
+  .pod-showcase-thumb,
+  .learn-free-thumb,
+  .pod-guest-image-wrap,
+  .about-video-card,
+  .interview-thumb
+) {
+  border: 1px solid var(--ctx-border, rgba(245, 242, 234, 0.08));
+  border-radius: var(--radius-card);
+  background: var(--ctx-card-bg, var(--color-soot));
+  box-shadow: none;
+  overflow: hidden;
+}
+
+:is(
+  .pod-showcase-thumb,
+  .learn-free-thumb,
+  .pod-guest-image-wrap,
+  .about-video-card,
+  .interview-thumb
+) img,
+:is(
+  .pod-showcase-thumb,
+  .learn-free-thumb,
+  .pod-guest-image-wrap,
+  .about-video-card,
+  .interview-thumb
+) video {
+  transition: transform 0.7s var(--ease-out-expo);
+}
+
+:is(
+  .pod-showcase-card:hover .pod-showcase-thumb,
+  .learn-free-row:hover .learn-free-thumb,
+  .pod-guest-tile:hover .pod-guest-image-wrap,
+  .about-video-card:hover,
+  .interview-card:hover .interview-thumb
+) img,
+:is(
+  .pod-showcase-card:hover .pod-showcase-thumb,
+  .learn-free-row:hover .learn-free-thumb,
+  .pod-guest-tile:hover .pod-guest-image-wrap,
+  .about-video-card:hover,
+  .interview-card:hover .interview-thumb
+) video {
+  transform: scale(1.035);
+}
+
+/* Compact spacing rhythm: premium but not overly empty. */
+:is(
+  #pillars .section-header,
+  .podcast-page-header,
+  .pod-guests-header,
+  .services-about-header,
+  .services-stack-header,
+	  .sponsors-header,
+	  .workhub-hero,
+	  .open-roles-header .section-header-center,
+	  .mp-why-header
+	) {
+  margin-bottom: var(--section-header-gap);
+}
+
+:is(
+  .pillars-grid,
+  .episodes-grid,
+	  .pod-4grid,
+	  .premium-duo,
+	  .wwu-grid,
+	  .interviews-grid,
+	  .services-stack-grid
+	) {
+  gap: var(--section-grid-gap);
+}
+
+.newsletter {
+  padding-top: var(--section-space-lg);
+  padding-bottom: var(--section-space-lg);
+}
+
+.nl-shell {
+  gap: clamp(24px, 4vw, 34px);
+}
+
+.pod-landing-grid {
+  gap: clamp(28px, 4vw, 44px);
+}
+
+.pod-platforms {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.pod-guest-grid {
+  gap: 20px;
+}
+
+.learn-free-row {
+  gap: clamp(24px, 4vw, 38px);
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.learn-free-title {
+  margin-bottom: 18px;
+}
+
+.services-bento {
+  margin-top: 40px;
+}
+
+.services-stack-group {
+  margin-top: 34px;
+}
+
+.services-stack-group-label {
+  margin-bottom: 16px;
+}
+
+.services-about-grid {
+  gap: clamp(28px, 4vw, 56px);
+}
+
+.footer-top {
+  gap: clamp(28px, 5vw, 40px);
+  margin-bottom: 36px;
+}
+
+/* Final CTA system: compact, centered, and consistent across pages. */
+:is(.services-cta, .open-roles-cta, .mp-cta) {
+  padding-top: var(--section-space-md);
+  padding-bottom: var(--section-space-md);
+}
+
+:is(.services-cta .reveal, .careers-cta-section, .mp-cta-shell) {
+  max-width: 760px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0;
+  text-align: center;
+}
+
+:is(.services-cta-heading, .careers-cta-heading, .mp-cta-heading) {
+  margin: 0 0 18px;
+  font-family: var(--font-body);
+  font-size: clamp(32px, 4.4vw, 56px);
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: 0;
+  color: var(--ctx-heading, var(--color-cream));
+  text-wrap: balance;
+}
+
+:is(.services-cta-heading, .careers-cta-heading, .mp-cta-heading) em {
+  font-family: var(--font-editorial);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ctx-label, var(--color-yellow));
+}
+
+:is(.services-cta, .open-roles-cta, .mp-cta) .body-text {
+  max-width: 680px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 24px;
+  color: var(--ctx-body, var(--color-fog));
+}
+
+:is(.services-cta, .open-roles-cta, .mp-cta) .btn-primary {
+  justify-content: center;
+}
+
+/* Page hero rhythm: one top system for the main public pages. */
+:is(
+  #podcast,
+  #learn .learn-premium-section,
+  .workhub-page,
+  .services-section,
+  .open-roles-header,
+  .mp-hero
+) {
+  padding-top: var(--section-space-sm);
+}
+
+:is(
+  #podcast,
+  #learn .learn-premium-section,
+  .workhub-page,
+  .services-section,
+  .mp-hero
+) {
+  padding-bottom: var(--section-space-md);
+}
+
+.open-roles-header {
+  padding-bottom: var(--section-space-xs);
+}
+
+:is(
+  #learn .learn-premium-section .section-header-center,
+  #podcast .podcast-page-header,
+  .workhub-page .workhub-hero,
+  .services-section > .container > .section-header-center,
+  .open-roles-header .section-header-center,
+  .mp-hero-copy
+) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  max-width: 920px;
+  padding: 0;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: var(--section-header-gap);
+  text-align: center;
+}
+
+:is(.wwu-grid, .services-bento) {
+  margin-top: 0;
+}
+
+.open-roles-list-section {
+  padding-top: 0;
+}
+
+:is(
+  #learn .learn-premium-section .section-label,
+  #podcast .podcast-page-header .section-label,
+  .workhub-page .workhub-hero .section-label,
+  .services-section > .container > .section-header-center .section-label,
+  .open-roles-header .section-header-center .section-label,
+  .mp-hero-copy .section-label
+) {
+  width: 100%;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+:is(
+  #learn .learn-premium-section .heading-hero,
+  #podcast .podcast-page-header .heading-hero,
+  .workhub-page .workhub-hero-title,
+  .services-section .heading-hero,
+  .open-roles-header .heading-hero,
+  .mp-h1
+) {
+  max-width: 980px;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 24px;
+  margin-left: auto;
+  font-size: clamp(44px, 5.4vw, 72px);
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+:is(
+  .podcast-page-copy,
+  .workhub-page .workhub-hero-copy,
+  .services-section > .container > .section-header-center .body-text,
+  .open-roles-header .body-text,
+  .mp-hero-sub
+) {
+  max-width: 660px;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .section-header,
+  .learn-section-header,
+  .pod-section-header {
+    margin-bottom: var(--section-header-gap);
+  }
+
+  .learn-free-row {
+    padding-top: 26px;
+    padding-bottom: 26px;
+  }
+
+  .pod-platforms {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  :is(.services-cta, .open-roles-cta, .mp-cta) {
+    padding-top: var(--section-space-sm);
+    padding-bottom: var(--section-space-sm);
+  }
+
+  :is(.services-cta-heading, .careers-cta-heading, .mp-cta-heading) {
+    font-size: clamp(30px, 9vw, 42px);
+    margin-bottom: 16px;
+  }
+
+  :is(.services-cta, .open-roles-cta, .mp-cta) .btn-primary {
+    width: 100%;
+  }
+
+  :is(
+    #podcast,
+    #learn .learn-premium-section,
+    .workhub-page,
+    .services-section,
+    .open-roles-header,
+    .mp-hero
+  ) {
+    padding-top: var(--section-space-sm);
+  }
+
+  :is(
+    #podcast,
+    #learn .learn-premium-section,
+    .workhub-page,
+    .services-section,
+    .mp-hero
+  ) {
+    padding-bottom: var(--section-space-sm);
+  }
+
+  :is(
+    #learn .learn-premium-section .section-header-center,
+    #podcast .podcast-page-header,
+    .workhub-page .workhub-hero,
+    .services-section > .container > .section-header-center,
+    .open-roles-header .section-header-center,
+    .mp-hero-copy
+  ) {
+    margin-bottom: var(--section-header-gap);
+  }
+
+  :is(.wwu-grid, .services-bento) {
+    margin-top: 0;
+  }
+
+  :is(
+    #learn .learn-premium-section .heading-hero,
+    #podcast .podcast-page-header .heading-hero,
+    .workhub-page .workhub-hero-title,
+    .services-section .heading-hero,
+    .open-roles-header .heading-hero,
+    .mp-h1
+  ) {
+    font-size: clamp(34px, 9vw, 44px);
+    line-height: 1.08;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -80,10 +454,387 @@ section {
   .section-header,
   .learn-section-header,
   .pod-section-header {
-    margin-bottom: 32px;
+    margin-bottom: var(--section-header-gap);
   }
 
   .section-header-left {
     max-width: none;
+  }
+
+  .heading-hero,
+  .mp-h1 {
+    font-size: 44px;
+    line-height: 1.08;
+  }
+
+  .heading-section,
+  .mp-cta-heading,
+  .careers-cta-heading {
+    font-size: 32px;
+    line-height: 1.14;
+  }
+
+  .label,
+  .section-label,
+  .pod-section-label,
+  .learn-free-eyebrow,
+  .pod-card-meta,
+  .services-card__num,
+  .services-card__eyebrow,
+  .mp-why-eyebrow,
+  .nl-eyebrow-text {
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+  }
+
+  .body-text,
+  .podcast-page-copy,
+  .pod-landing-desc,
+  .workhub-hero-copy,
+  .mp-hero-sub,
+  .mp-why-lede {
+    font-size: 15px;
+    line-height: 1.64;
+  }
+
+  .premium-card p,
+  .learn-free-byline,
+  .services-card__desc,
+  .career-summary-main p,
+  .career-info p,
+  .wwu-card-copy,
+  .mp-why-card-body,
+  .pillar-panel-desc,
+  .nl-body {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-peach,
+  .btn-light,
+  .btn-green,
+  .btn-blue,
+  .btn-outline,
+  .btn-ghost,
+  .premium-card-cta,
+  .career-apply-btn {
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading-hero,
+  .mp-h1 {
+    font-size: 36px;
+    line-height: 1.1;
+  }
+
+  .heading-section,
+  .mp-cta-heading,
+  .careers-cta-heading {
+    font-size: 28px;
+    line-height: 1.16;
+  }
+
+  .label,
+  .section-label,
+  .pod-section-label,
+  .learn-free-eyebrow,
+  .pod-card-meta,
+  .services-card__num,
+  .services-card__eyebrow,
+  .mp-why-eyebrow,
+  .nl-eyebrow-text {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  .body-text,
+  .podcast-page-copy,
+  .pod-landing-desc,
+  .workhub-hero-copy,
+  .mp-hero-sub,
+  .mp-why-lede {
+    font-size: 14.5px;
+    line-height: 1.62;
+  }
+}
+
+/* Mobile polish: compact, non-collapsing stacks. */
+@media (max-width: 1024px) {
+  .wwu-card {
+    min-height: 420px;
+    padding: 32px;
+  }
+
+  .premium-card {
+    min-height: 380px;
+  }
+
+  .services-bento {
+    margin-top: 32px;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .services-bento .services-card,
+  .services-bento .services-card--hero,
+  .services-bento .services-card:nth-of-type(4),
+  .services-bento .services-card:nth-of-type(5) {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .services-bento .services-card--hero {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  :is(.heading-hero, .heading-section, .mp-h1, .surface-title) {
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+
+  :is(.pillars-grid, .premium-duo, .wwu-grid, .services-bento, .pod-4grid, .services-stack-grid) {
+    gap: 12px;
+  }
+
+  .pillar-panel-content {
+    padding: 20px;
+  }
+
+  .pillar-panel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .newsletter {
+    padding-top: var(--section-space-md);
+    padding-bottom: var(--section-space-md);
+  }
+
+  .nl-shell {
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .nl-input,
+  .nl-submit {
+    min-height: 46px;
+  }
+
+  .pod-landing-grid {
+    gap: 24px;
+  }
+
+  .pod-phone-img {
+    max-width: 220px;
+  }
+
+  .pod-platforms {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .pod-platforms-grid {
+    gap: 10px;
+  }
+
+  .pod-platforms-btn {
+    min-height: 60px;
+    padding: 14px;
+  }
+
+  .pod-hero {
+    margin-bottom: 20px;
+  }
+
+  .pod-hero-content {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .pod-hero-content h2 {
+    margin: 10px 0 14px;
+  }
+
+  .pod-guest-grid {
+    gap: 16px;
+  }
+
+  .pod-guest-meta {
+    min-height: 64px;
+  }
+
+  .learn-free-row {
+    gap: 16px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .learn-free-eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .learn-free-title {
+    margin-bottom: 14px;
+  }
+
+  .learn-free-action {
+    gap: 10px;
+    padding-left: 0;
+  }
+
+  .learn-free-action-arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .premium-card {
+    min-height: 340px;
+    padding: 24px;
+  }
+
+  .premium-card-logo {
+    height: 60px;
+    margin-bottom: 16px;
+  }
+
+  .premium-card-ai-icon {
+    font-size: 42px;
+    margin-bottom: 16px;
+  }
+
+  .premium-card-stats {
+    margin-bottom: 18px;
+  }
+
+  .wwu-card {
+    min-height: 360px;
+    padding: 24px;
+  }
+
+  .wwu-card-title {
+    font-size: clamp(32px, 9vw, 44px);
+  }
+
+  .wwu-card-tags {
+    margin-bottom: 20px;
+  }
+
+  .services-card__body,
+  .services-card--hero .services-card__body {
+    padding: 22px;
+    gap: 18px;
+  }
+
+  .services-bento .services-card,
+  .services-bento .services-card--hero {
+    min-height: 220px;
+  }
+
+  .services-stack-group {
+    margin-top: 28px;
+  }
+
+  .services-stack-tile {
+    padding: 20px 12px;
+  }
+
+  .mp-device-row {
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+	  .footer-top {
+    gap: 18px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+  }
+
+  .footer-social-row {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  footer.surface-premium .footer-social-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .nl-shell {
+    padding: 22px 18px;
+  }
+
+  .pod-guest-tile {
+    flex-basis: min(72vw, 220px);
+    max-width: min(72vw, 220px);
+  }
+
+  .pod-guests-section {
+    padding-top: var(--section-space-md);
+    padding-bottom: var(--section-space-md);
+  }
+
+  .premium-card {
+    min-height: 320px;
+    padding: 22px 18px;
+  }
+
+  .premium-card h2 {
+    font-size: clamp(25px, 7vw, 32px);
+  }
+
+  .premium-card-cta,
+  .wwu-card-cta,
+  .career-apply-btn {
+    width: 100%;
+  }
+
+  .wwu-card {
+    min-height: 330px;
+    padding: 22px 18px;
+  }
+
+  .services-bento {
+    margin-top: 24px;
+  }
+
+  .services-bento .services-card,
+  .services-bento .services-card--hero {
+    min-height: 200px;
+  }
+
+  .services-card__body,
+  .services-card--hero .services-card__body {
+    padding: 20px;
+  }
+
+  .services-stack-grid {
+    gap: 10px;
+  }
+
+  .footer-social-row {
+    justify-content: flex-start;
+  }
+
+  footer.surface-premium .footer-social-btn {
+    width: 36px;
+    height: 36px;
   }
 }

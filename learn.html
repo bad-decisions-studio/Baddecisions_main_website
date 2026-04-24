@@ -142,7 +142,7 @@
   <main class="page-main" id="main-content">
     <!-- ─── LEARN ──────────────────────────────────────────────────── -->
   <section id="learn">
-    <div class="learn-premium-section bg-glow-gold">
+    <div class="learn-premium-section surface-premium">
       <div class="container">
         <div class="section-header section-header-center reveal">
           <div class="label section-label">Education</div>
@@ -157,21 +157,6 @@
             <h2 class="learn-row-title">Premium Programs</h2>
           </div>
           <div class="premium-duo">
-            <a href="https://learn.baddecisions.studio" target="_self" class="premium-card premium-card-ue">
-              <video class="premium-card-video premium-card-cycle" data-autoplay muted playsinline data-videos="/assets/video/ue-virtual-prod.mp4,/assets/video/ue-metahuman.mp4,/assets/video/ue-world-building.mp4">
-                <source src="/assets/video/ue-virtual-prod.mp4" type="video/mp4">
-              </video>
-              <div class="premium-card-overlay"></div>
-              <div class="premium-card-content">
-                <img src="/assets/client-logos/unreal-engine.svg" alt="Unreal Engine" class="premium-card-logo" width="200" height="100" loading="lazy">
-                <h3>Learn Unreal Engine in <em>14 Days</em></h3>
-                <p>step-by-step program teaching you the most powerful 3D software, for beginners and pros who want portfolio-ready results!</p>
-                <div class="premium-card-stats">
-                  <div><strong>55+</strong> Lessons</div>
-                </div>
-                <span class="premium-card-cta">Learn Unreal Engine &rarr;</span>
-              </div>
-            </a>
             <a href="https://ai.baddecisions.studio" target="_self" class="premium-card premium-card-ai">
               <div class="premium-card-overlay premium-card-overlay-ai"></div>
               <div class="premium-card-glow premium-card-glow-ai"></div>
@@ -187,12 +172,27 @@
                 <span class="premium-card-cta">Join the Program &rarr;</span>
               </div>
             </a>
+            <a href="https://learn.baddecisions.studio" target="_self" class="premium-card premium-card-ue">
+              <video class="premium-card-video premium-card-cycle" data-autoplay muted playsinline data-videos="/assets/video/ue-virtual-prod.mp4,/assets/video/ue-metahuman.mp4,/assets/video/ue-world-building.mp4">
+                <source src="/assets/video/ue-virtual-prod.mp4" type="video/mp4">
+              </video>
+              <div class="premium-card-overlay"></div>
+              <div class="premium-card-content">
+                <img src="/assets/client-logos/unreal-engine.svg" alt="Unreal Engine" class="premium-card-logo" width="200" height="100" loading="lazy">
+                <h3>Learn Unreal Engine in <em>14 Days</em></h3>
+                <p>step-by-step program teaching you the most powerful 3D software, for beginners and pros who want portfolio-ready results!</p>
+                <div class="premium-card-stats">
+                  <div><strong>55+</strong> Lessons</div>
+                </div>
+                <span class="premium-card-cta">Learn Unreal Engine &rarr;</span>
+              </div>
+            </a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="learn-free-section">
+    <div class="learn-free-section surface-editorial">
       <div class="container">
         <div class="section-header reveal learn-section-header">
           <div class="section-header-left">
@@ -328,7 +328,7 @@
     </div>
   </section>
     <!-- ─── NEWSLETTER ───────────────────────────────────────── -->
-  <section class="newsletter">
+  <section class="newsletter surface-premium">
     <div class="nl-atmosphere" aria-hidden="true">
       <div class="nl-glow"></div>
     </div>
@@ -350,24 +350,18 @@
           <!-- Honeypot — hidden from real users, filled by bots -->
           <input type="text" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" class="nl-honeypot">
 
-          <div class="nl-fields">
-            <label class="nl-field">
-              <span class="nl-field-label">Name</span>
-              <input type="text" name="name" placeholder="First name" autocomplete="given-name" minlength="2" required>
-            </label>
-            <label class="nl-field">
-              <span class="nl-field-label">Email</span>
-              <input type="email" name="email" placeholder="you@domain.com" autocomplete="email" required>
-            </label>
-          </div>
+	          <div class="nl-fields">
+	            <label class="nl-field">
+	              <input type="text" name="name" placeholder="First name" autocomplete="given-name" aria-label="Name" minlength="2" required>
+	            </label>
+	            <label class="nl-field">
+	              <input type="email" name="email" placeholder="john@gmail.com" autocomplete="email" aria-label="Email" required>
+	            </label>
+	          </div>
           <button type="submit" class="nl-submit">
             <span class="nl-submit-text">Subscribe</span>
             <span class="nl-submit-arrow" aria-hidden="true">&rarr;</span>
           </button>
-          <p class="nl-fineprint">
-            <span class="nl-fineprint-dot"></span>
-            By subscribing you agree to our privacy policy.
-          </p>
           <div class="nl-success" role="status" aria-live="polite" hidden>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 6 11 12 3"/></svg>
             <span>You're on the list. Check your inbox.</span>
@@ -515,7 +509,7 @@
   </script>
   </main>
   <!-- ─── FOOTER ──────────────────────────────────────────────────── -->
-  <footer>
+  <footer class="surface-premium">
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">

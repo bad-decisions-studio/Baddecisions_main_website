@@ -182,15 +182,20 @@ function buildPage(templateFile) {
   let html = fs.readFileSync(templatePath, 'utf8');
 
   // 1. Inline all section partials
-  html = html.replace(INCLUDE_RE, (match, sectionPath) => {
-    const filePath = path.join(ROOT, sectionPath);
-    if (!fs.existsSync(filePath)) {
-      // Fail loud: missing includes should break the build, not silently produce broken HTML
-      throw new Error(`Missing section include: ${sectionPath} (referenced in ${templateFile})`);
-    }
-    const content = fs.readFileSync(filePath, 'utf8');
-    return content.trim();
-  });
+  while (true) {
+    INCLUDE_RE.lastIndex = 0;
+    if (!INCLUDE_RE.test(html)) break;
+    INCLUDE_RE.lastIndex = 0;
+    html = html.replace(INCLUDE_RE, (match, sectionPath) => {
+      const filePath = path.join(ROOT, sectionPath);
+      if (!fs.existsSync(filePath)) {
+        // Fail loud: missing includes should break the build, not silently produce broken HTML
+        throw new Error(`Missing section include: ${sectionPath} (referenced in ${templateFile})`);
+      }
+      const content = fs.readFileSync(filePath, 'utf8');
+      return content.trim();
+    });
+  }
 
   // 2. Remove the inline loader IIFE
   html = html.replace(LOADER_IIFE_RE, '');

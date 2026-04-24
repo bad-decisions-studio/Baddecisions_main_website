@@ -70,10 +70,11 @@
   gap: 7px;
   min-height: 42px;
   padding: 0 14px;
-  font-family: var(--font-body);
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-fog);
   transition: color var(--duration-fast) var(--ease-out-expo);
   white-space: nowrap;
@@ -139,10 +140,11 @@
 }
 
 .site-nav .nav-dd-label {
-  font-family: var(--font-body);
-  font-size: 12.5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-fog);
 }
 
@@ -157,11 +159,10 @@
 }
 
 .site-nav .nav-dd-item--utility .nav-dd-label {
-  font-size: 11.5px;
+  font-size: 9.5px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--color-ash);
-  text-transform: uppercase;
 }
 
 .site-nav .nav-right {
@@ -237,7 +238,7 @@
     inset: 56px 0 0;
     z-index: 99;
     display: none;
-    background: rgba(5, 5, 5, 0.98);
+    background: var(--surface-premium, #050505);
     border-top: 1px solid var(--border-cream-soft);
     overflow-y: auto;
   }
@@ -247,7 +248,7 @@
   }
 
   .nav-mobile-shell {
-    padding-top: 4px;
+    padding-top: 8px;
     padding-bottom: 28px;
   }
 
@@ -263,12 +264,14 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    min-height: 66px;
+    min-height: 58px;
     padding: 0 4px;
-    font-family: var(--font-body);
-    font-size: 18px;
+    font-family: var(--font-mono);
+    font-size: 12px;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.25;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--color-cream);
     border-bottom: 1px solid rgba(245, 242, 234, 0.1);
     background: transparent;
@@ -326,10 +329,10 @@
   .nav-mobile-overlay .mobile-panel a {
     display: flex;
     align-items: center;
-    min-height: 48px;
+    min-height: 44px;
     padding: 0 4px 0 16px;
     font-family: var(--font-body);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.015em;
     color: var(--color-fog);

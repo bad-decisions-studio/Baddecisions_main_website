@@ -39,7 +39,7 @@ Main/
 │   ├── podcast-landing.html
 │   ├── newsletter.html
 │   ├── about.html
-│   ├── _trust-logos.html
+│   ├── trusted-marquee.html
 │   ├── footer.html
 │   ├── learn.html
 │   ├── podcast.html

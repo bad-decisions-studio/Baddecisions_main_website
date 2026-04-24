@@ -1,5 +1,5 @@
   <!-- ─── NEWSLETTER ───────────────────────────────────────── -->
-  <section class="newsletter">
+  <section class="newsletter surface-premium">
     <div class="nl-atmosphere" aria-hidden="true">
       <div class="nl-glow"></div>
     </div>
@@ -21,24 +21,18 @@
           <!-- Honeypot — hidden from real users, filled by bots -->
           <input type="text" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" class="nl-honeypot">
 
-          <div class="nl-fields">
-            <label class="nl-field">
-              <span class="nl-field-label">Name</span>
-              <input type="text" name="name" placeholder="First name" autocomplete="given-name" minlength="2" required>
-            </label>
-            <label class="nl-field">
-              <span class="nl-field-label">Email</span>
-              <input type="email" name="email" placeholder="you@domain.com" autocomplete="email" required>
-            </label>
-          </div>
+	          <div class="nl-fields">
+	            <label class="nl-field">
+	              <input type="text" name="name" placeholder="First name" autocomplete="given-name" aria-label="Name" minlength="2" required>
+	            </label>
+	            <label class="nl-field">
+	              <input type="email" name="email" placeholder="john@gmail.com" autocomplete="email" aria-label="Email" required>
+	            </label>
+	          </div>
           <button type="submit" class="nl-submit">
             <span class="nl-submit-text">Subscribe</span>
             <span class="nl-submit-arrow" aria-hidden="true">&rarr;</span>
           </button>
-          <p class="nl-fineprint">
-            <span class="nl-fineprint-dot"></span>
-            By subscribing you agree to our privacy policy.
-          </p>
           <div class="nl-success" role="status" aria-live="polite" hidden>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 6 11 12 3"/></svg>
             <span>You're on the list. Check your inbox.</span>
