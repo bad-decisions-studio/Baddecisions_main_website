@@ -1,178 +1,185 @@
-# Bad Decisions Studio — Website
+# Bad Decisions Studio Website
 
-Production marketing site for [Bad Decisions Studio](https://www.baddecisions.studio), focused on three core pathways: podcast, learning, and working with the studio.
+Static marketing site for [Bad Decisions Studio](https://www.baddecisions.studio), built around three public paths:
+- `Podcast`
+- `Learn`
+- `Work With Us`
+
+The project is intentionally simple: reusable HTML sections, page templates, one build step, and vanilla CSS/JS.
 
 ## Stack
 
-- **HTML/CSS/JS** — vanilla, no framework
-- **Vercel** — hosting, CDN, security headers, serverless functions
-- **Upstash Redis** — optional podcast episode cache (via Vercel Marketplace)
-- **Local Web Fonts** — PP Editorial New, Inter, Azeret Mono
+- HTML, CSS, JavaScript
+- Vercel for hosting and serverless functions
+- Upstash Redis for optional podcast caching
+- Self-hosted fonts: `PP Editorial New`, `Inter`, `Azeret Mono`
 
-## Project Structure
+## Repo layout
 
 ```text
-├── build.js              Build script — inlines section partials into final pages
+Main/
+├── build.js                  Build script: composes templates + sections into final pages
+├── dev-server.js             Small local static server
 ├── data/
-│   └── site-content.js   Shared content/config for platforms, Learn rows, podcast cards, guests
-├── templates/            Source page templates (head, meta, layout)
+│   └── site-content.js       Shared content/config for platform links, podcast cards, guests, learn rows
+├── templates/                Page templates (head/meta/layout)
 │   ├── index.html
 │   ├── learn.html
 │   ├── podcast.html
 │   ├── work-with-us.html
 │   └── work-with-us/
-│       ├── services.html
 │       ├── media-partnerships.html
-│       └── open-roles.html
-├── sections/             Shared HTML partials (content blocks)
-│   ├── nav.html          Shared fixed nav with dropdowns and mobile overlay
-│   ├── hero.html         Full-bleed cinematic video hero with bottom-anchored content
-│   ├── pillars.html      Three image cards on tan paper (Watch / Learn / Work With Us)
-│   ├── find-us.html      Social/platform icon strip
-│   ├── podcast-landing.html   Podcast CTA with iPhone mockup on ember gradient
-│   ├── newsletter.html   Shared newsletter signup section
-│   ├── about.html        Studio positioning section on brown
-│   ├── _trust-logos.html Shared trusted-by logo strip
-│   ├── footer.html       4-column footer with BD mark, links, socials, copyright
-│   ├── learn.html        Premium programs + free-learning rows
-│   ├── podcast.html      Featured ep, recent eps, listen-on, guest grid
-│   ├── work-with-us.html Commercial hub: pathways and roles
-│   └── work-with-us/     Sub-page sections
-│       ├── services.html
+│       ├── open-roles.html
+│       └── services.html
+├── sections/                 Source-of-truth HTML partials
+│   ├── nav.html
+│   ├── hero.html
+│   ├── pillars.html
+│   ├── find-us.html
+│   ├── podcast-landing.html
+│   ├── newsletter.html
+│   ├── about.html
+│   ├── _trust-logos.html
+│   ├── footer.html
+│   ├── learn.html
+│   ├── podcast.html
+│   ├── work-with-us.html
+│   └── work-with-us/
 │       ├── media-partnerships.html
 │       ├── media-partnerships-cta.html
-│       └── open-roles.html
+│       ├── open-roles.html
+│       └── services.html
 ├── css/
-│   ├── globals.css       Design tokens, @font-face, typography, buttons, badges, bg treatments
-│   ├── style.css         Section-specific layouts and responsive rules
-│   ├── components.css    Shared system overrides for cards, spacing, and surfaces
-│   └── nav.css           Shared nav layout and mobile overlay styling
+│   ├── globals.css           Tokens, fonts, base utilities, shared primitives
+│   ├── style.css             Section/page styling and responsive rules
+│   ├── components.css        Shared component normalization
+│   └── nav.css               Shared navigation styling
 ├── js/
-│   └── main.js           Nav toggle, reveal animations, podcast API, lazy video
+│   └── main.js               Nav, scroll reveal, podcast API refresh, lazy video, mobile sliders
 ├── api/
-│   └── podcast.js        Serverless — Apple Podcasts + YouTube Data API + Redis cache
+│   └── podcast.js            Serverless podcast endpoint
 ├── assets/
-│   ├── fonts-web/        Self-hosted woff2: PP Editorial New, Inter, Azeret Mono
-│   ├── bd-logo/          SVG logos and brand marks
-│   ├── client-logos/     Client/partner logos
-│   ├── platform-logos/   Standalone social/podcast platform assets
-│   ├── podcast/          Podcast cover art, iPhone mockup
-│   ├── learn/            Free-learning thumbnails
-│   └── video/            Hero video and course/program previews
-├── vercel.json           Build command, cache headers, security headers
-├── sitemap.xml           All public pages
-├── llms.txt              Machine-readable brand summary
-└── CLAUDE.md             AI assistant build instructions + design rules
+│   ├── bd-logo/
+│   ├── client-logos/
+│   ├── fonts-web/
+│   ├── learn/
+│   ├── platform-logos/
+│   ├── podcast/
+│   └── video/
+├── docs/
+│   └── AUDIT.md              Historical audit notes
+├── index.html                Generated output
+├── learn.html                Generated output
+├── podcast.html              Generated output
+├── work-with-us.html         Generated output
+├── work-with-us/
+│   ├── media-partnerships.html
+│   ├── open-roles.html
+│   └── services.html
+├── llms.txt
+├── sitemap.xml
+├── robots.txt
+├── vercel.json
+├── CLAUDE.md
+└── package.json
 ```
 
-## Pages
+## Build flow
 
-| Page | URL | Purpose |
-|------|-----|---------|
-| Home | `/` | Explain what BDS is, build trust, show 3 paths, prove credibility |
-| Podcast | `/podcast` | Show, recent episodes, listen-on platforms, notable guests |
-| Learn | `/learn` | Premium programs + free series |
-| Work With Us | `/work-with-us` | Commercial hub — services, media partnerships, open roles |
-| Services | `/work-with-us/services` | Detailed services offering + trusted-by logos |
-| Media Partnerships | `/work-with-us/media-partnerships` | Fast sponsor-facing page with audience stats and partnership CTA |
-| Open Roles | `/work-with-us/open-roles` | Current job openings |
+Edit source files only:
+- `sections/`
+- `templates/`
+- `data/site-content.js`
+- `css/`
+- `js/`
+
+Then rebuild:
+
+```bash
+npm run build
+```
+
+Do not hand-edit generated pages at the root like:
+- `index.html`
+- `learn.html`
+- `podcast.html`
+- `work-with-us/*.html`
+
+They are overwritten by the build.
 
 ## Development
 
+Install:
+
 ```bash
 npm install
-npm run build        # Inlines sections into pages
-npx serve .          # Local preview (podcast API won't work locally)
 ```
 
-**Workflow:** Edit `sections/` or `templates/` → run `npm run build` → refresh browser.
+Build once:
 
-Do NOT edit root HTML files directly — they are build outputs.
+```bash
+npm run build
+```
 
-## Build Script
+Run local server:
 
-`build.js` reads each template from `templates/` (including subdirectories like `work-with-us/`), replaces `<div data-include="/sections/...">` markers with actual section content, injects shared CSS (`globals.css`, `style.css`, `components.css`, `nav.css`), expands build-time content tokens from `data/site-content.js`, and writes final HTML to the project root.
+```bash
+npm run serve
+```
 
-## Design System
+Build + serve together:
 
-### Color Tokens
+```bash
+npm run dev
+```
 
-The design system uses a warm-shifted neutral scale (never pure greys) plus 6 brand colors:
+Default local URLs:
+- [http://localhost:4173](http://localhost:4173)
+- [http://localhost:8000](http://localhost:8000) when running the simple node server on that port
 
-| Token | Value | Use |
-|-------|-------|-----|
-| `--color-yellow` | `#FFEF7B` | CTAs, accent italic, eyebrows |
-| `--color-blue` | `#97C7CD` | Podcast/show accent |
-| `--color-green` | `#3A5D5B` | Education, trust, buttons on light |
-| `--color-tan` | `#FBF9ED` | Light/paper sections |
-| `--color-brown` | `#937E67` | Origin story, warmth |
-| `--color-peach` | `#C17E59` | Warm CTA accent |
-| `--color-void` | `#050505` | Primary dark background |
-| `--color-ink` | `#0E0D0B` | Slightly lighter dark bg |
-| `--color-soot` | `#1A1814` | Card backgrounds on dark |
-| `--color-charcoal` | `#222019` | Surface elevation |
-| `--color-stone` | `#2E2B26` | Borders, UI lines |
-| `--color-ash` | `#6B6560` | Body text on light (15px+, wt 500) |
-| `--color-fog` | `#A8A29E` | Body text on dark |
-| `--color-bone` | `#D6D0C8` | Body text on green/brown |
-| `--color-cream` | `#F5F2EA` | Headings on dark |
+## Content model
 
-### Typography
+`data/site-content.js` is the canonical source for repeated content:
+- platform links/assets/order
+- podcast recent episode cards
+- podcast guest tiles
+- learn free-content rows
 
-| Role | Font | Token |
-|------|------|-------|
-| Display headings | PP Editorial New | `--font-editorial` |
-| Body text | Inter | `--font-body` |
-| Labels, meta | Azeret Mono | `--font-mono` |
+If a section uses `{{token}}` placeholders in a partial, the build expands them from `site-content.js`.
 
-### Section Backgrounds
+## Design system
 
-Homepage rotates through distinct backgrounds to separate the three core pillars, podcast, newsletter, and studio positioning without relying on repeated section treatments.
+Shared styling is split intentionally:
+- `css/globals.css` for tokens and base primitives
+- `css/components.css` for shared component cleanup
+- `css/nav.css` for navigation only
+- `css/style.css` for page/section styling
 
-### Background Treatment Classes
+Navigation is shared across every page from `sections/nav.html`.
 
-`globals.css` provides atmospheric utility classes: `.bg-glow-gold`, `.bg-glow-blue`, `.bg-glow-peach`, `.bg-diagonal`, `.bg-vignette`, `.bg-horizon`, `.bg-ember`, `.bg-mesh`, `.bg-topwash`, `.bg-paper-texture`
+## Environment variables
 
-### Image Treatment
+Optional environment variables for the podcast API:
 
-Per CLAUDE.md, images render at natural saturation. Use gradient overlays (`linear-gradient(transparent → void)`) for text legibility on hero backgrounds rather than CSS filters. The `.img-cinematic` / `.img-warm` filter classes were removed (2026-04-23).
+| Variable | Purpose |
+|---|---|
+| `YOUTUBE_API_KEY` | YouTube Data API access |
+| `KV_REST_API_URL` | Upstash Redis REST URL |
+| `KV_REST_API_TOKEN` | Upstash Redis REST token |
 
-## Navigation
-
-Fixed shared nav across every page. Logo left, primary links in the middle, dropdowns for Learn and Work With Us, and a simplified mobile overlay. No route-specific CTA swapping.
-
-## Platform Assets
-
-All visible social and platform surfaces use standalone assets in `assets/platform-logos/`, with platform links and ordering centralized in `data/site-content.js`.
-
-## SEO & Accessibility
-
-- Canonical tags on all pages
-- Open Graph + Twitter Card meta on all pages
-- JSON-LD structured data (Organization, WebSite, PodcastSeries, Course)
-- Sitemap covering all public pages
-- `llms.txt` for LLM crawlers
-- Skip-nav link with `#main-content` target
-- `rel="noopener noreferrer"` on all external links
-- `prefers-reduced-motion` support (CSS + JS)
-- Local font preloads with `font-display: swap`
-- Lazy video autoplay via IntersectionObserver
-
-## Environment Variables
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `YOUTUBE_API_KEY` | Optional | YouTube Data API key for episode thumbnails |
-| `KV_REST_API_URL` | Optional | Upstash Redis REST URL |
-| `KV_REST_API_TOKEN` | Optional | Upstash Redis REST token |
-
-Falls back to Apple Podcasts artwork + hardcoded YouTube cache if not set.
+If they are missing, the site still renders using static fallback content.
 
 ## Deployment
 
 ```bash
-vercel deploy          # Preview
-vercel deploy --prod   # Production
+vercel deploy
+vercel deploy --prod
 ```
 
-Vercel runs `npm run build` automatically via `vercel.json` `buildCommand`.
+Vercel runs `npm run build` through `vercel.json`.
+
+## Repo hygiene
+
+- `.DS_Store`, logs, local env files, and `.claude/` are gitignored
+- historical notes live in `docs/` instead of the repo root
+- platform links and repeated card content should stay centralized in `data/site-content.js`

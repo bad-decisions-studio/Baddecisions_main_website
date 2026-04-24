@@ -1,8 +1,8 @@
 {
   "name": "bds-vercel",
   "version": "1.0.0",
-  "description": "Bad Decisions Studio website",
-  "main": "index.js",
+  "description": "Bad Decisions Studio marketing website",
+  "main": "build.js",
   "scripts": {
     "build": "node build.js",
     "dev": "node build.js && node dev-server.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/badxstudio/bds-website.git"
+    "url": "git+https://github.com/BD-Studio-team/Baddecisions_main_website.git"
   },
   "keywords": [],
   "author": "Bad Decisions Studio",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/badxstudio/bds-website/issues"
+    "url": "https://github.com/BD-Studio-team/Baddecisions_main_website/issues"
   },
   "homepage": "https://www.baddecisions.studio",
   "dependencies": {
