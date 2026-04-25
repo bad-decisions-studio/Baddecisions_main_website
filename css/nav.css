@@ -12,7 +12,6 @@
   border-bottom: 1px solid var(--border-cream-soft);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  overflow-x: hidden;
 }
 
 .site-nav-inner {
@@ -218,6 +217,10 @@
 }
 
 @media (max-width: 768px) {
+  .site-nav {
+    overflow-x: hidden;
+  }
+
   .site-nav-inner {
     min-height: 56px;
     width: 100%;
