@@ -20,8 +20,5 @@
   "bugs": {
     "url": "https://github.com/BD-Studio-team/Baddecisions_main_website/issues"
   },
-  "homepage": "https://www.baddecisions.studio",
-  "dependencies": {
-    "@upstash/redis": "^1.37.0"
-  }
+  "homepage": "https://www.baddecisions.studio"
 }

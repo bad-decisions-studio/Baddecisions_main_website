@@ -69,9 +69,10 @@ Do not replace Services with Projects. Do not use Media as the main label. Do no
 │   ├── components.css        Shared system overrides and component normalization
 │   └── nav.css               Shared nav layout and mobile overlay styling
 ├── js/
-│   └── main.js               Nav toggle, scroll reveal, podcast API, lazy video
+│   └── main.js               Nav toggle, scroll reveal, lazy video
 ├── api/
-│   └── podcast.js            Serverless — YouTube Data API + Upstash Redis cache
+│   └── cron/
+│       └── podcast-refresh.js Serverless — Vercel Cron deploy-hook trigger
 ├── assets/
 │   ├── fonts-web/            Self-hosted woff2: PP Editorial New, Inter, Azeret Mono
 │   ├── bd-logo/              SVG logos and marks
@@ -595,44 +596,30 @@ Use images at their natural saturation and brightness. Do not apply global `.img
 
 ---
 
-## Podcast API
+## Podcast Refresh
 
-`/api/podcast.js` is a Vercel serverless function fetching the latest episodes from the YouTube Data API (channel `UCOQ6GGRyyu8S3jahnUz2zHw`). Optionally layered with **Upstash Redis** caching when `KV_REST_API_URL` and `KV_REST_API_TOKEN` are set — reduces YouTube API quota burn and cold-start latency.
+Podcast episode cards are static HTML. `build.js` fetches the latest YouTube playlist items at build time when `YOUTUBE_API_KEY` is available, then renders the newest episodes into `/podcast`. If the key is missing or YouTube fails, the build falls back to the checked-in `data/site-content.js` episode list.
 
-**Cache strategy:**
-- Redis key `bds:podcast:feed:v1` wrapped as `{ fetchedAt, payload }`
-- Fresh window: **1 hour** (returns immediately with `X-Cache: HIT`)
-- Stale window: **24 hours** (returns cached data immediately + kicks off background refresh, `X-Cache: STALE`)
-- Cold cache: fetches live, caches, returns (`X-Cache: MISS`)
-- Any failure: returns hardcoded `FALLBACK_EPISODES` with short edge cache (`X-Cache: FALLBACK`)
-- Every failure mode degrades gracefully — the API never errors out
+There is no browser-side podcast request. Do not reintroduce a client fetch for recent episodes unless the production caching strategy changes.
 
-**Vercel edge cache:** `Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400` for successful responses, `s-maxage=300` for fallback. Sits in front of Redis, so most requests never reach the function.
+**Daily refresh flow:**
+- `vercel.json` registers `/api/cron/podcast-refresh` once per day.
+- `api/cron/podcast-refresh.js` verifies `CRON_SECRET`.
+- The cron endpoint calls `VERCEL_DEPLOY_HOOK_URL`.
+- The resulting production rebuild runs `npm run build`, calls YouTube once, and bakes the latest episode data into static HTML.
 
-**Observability:** Responses include `X-Cache` and `X-Cache-Age` headers for debugging.
+**Data shape used by `build.js`:**
 
-**Dynamic / static split:** Only the **top section of `/podcast`** is dynamic. The featured hero (`.pod-hero`) and recent episodes grid (`.pod-4grid .pod-showcase-card`) are updated at runtime from this API. The **8 guest cards** are static — thumbnails are downloaded once to `/assets/podcast/guests/*.jpg` and referenced as local files. Same for `/education` free-series thumbnails in `/assets/learn/*.jpg`.
-
-```json
+```js
 {
-  "totalEpisodes": 103,
-  "episodes": [
-    {
-      "id": "xRx7yKg0n-U",
-      "episodeNumber": 103,
-      "title": "Episode Title",
-      "description": "Cleaned plain text...",
-      "date": "Apr 2026",
-      "duration": "",
-      "artworkUrl": "https://i.ytimg.com/vi/.../maxresdefault.jpg",
-      "youtubeUrl": "https://www.youtube.com/watch?v=...",
-      "trackViewUrl": "https://www.youtube.com/watch?v=..."
-    }
-  ]
+  href: 'https://www.youtube.com/watch?v=...',
+  image: 'https://i.ytimg.com/vi/.../maxresdefault.jpg',
+  imageAlt: 'Episode thumbnail',
+  episode: 'Ep. 103',
+  date: 'Apr 1',
+  title: 'Episode Title'
 }
 ```
-
-Do not modify the contract without updating both sides (`api/podcast.js` + `js/main.js:initPodcastData`).
 
 ---
 
@@ -676,11 +663,11 @@ External links (ai.baddecisions.studio, learn.baddecisions.studio) open in the s
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `YOUTUBE_API_KEY` | Optional | YouTube Data API key. Without it, the podcast API returns `FALLBACK_EPISODES`. |
-| `KV_REST_API_URL` | Optional | Upstash Redis REST URL. Adds cache layer in front of YouTube. |
-| `KV_REST_API_TOKEN` | Optional | Upstash Redis REST token. |
+| `YOUTUBE_API_KEY` | Optional | YouTube Data API key used by `build.js` to bake recent podcast episodes into static HTML. |
+| `CRON_SECRET` | Required for cron refresh | Protects `/api/cron/podcast-refresh`. Vercel Cron sends it as a bearer token. |
+| `VERCEL_DEPLOY_HOOK_URL` | Required for cron refresh | Deploy hook URL called by the daily podcast refresh cron. |
 
-All three are optional. With none set, the podcast API still works (returns hardcoded fallback episodes with Vercel edge caching). With `YOUTUBE_API_KEY` only, the API fetches live but hits YouTube on every edge cache miss. With all three set, you get the full cache chain: Redis (fresh/stale) → YouTube → fallback.
+If `YOUTUBE_API_KEY` is missing, builds still succeed using the checked-in episode list in `data/site-content.js`.
 
 ---
 
@@ -702,7 +689,7 @@ Vercel runs `npm run build` automatically via `vercel.json` `buildCommand`.
 
 | Prefix | Owner | Example |
 |--------|-------|---------|
-| `pod-*`  | `sections/podcast.html` and podcast partials | `.pod-hero`, `.pod-showcase-card`, `.pod-platforms` |
+| `pod-*` / `re-*` | `sections/podcast.html` and podcast partials | `.pod-platforms`, `.pod-guest-grid`, `.re-grid`, `.re-row` |
 | `mp-*`   | `sections/work-with-us/media-partnerships.html` | `.mp-hero`, `.mp-platform-card`, `.mp-cta-grid` |
 | `wwu-*`  | `sections/work-with-us.html` (hub) | `.wwu-card`, `.wwu-card-media` |
 | `learn-*` | `sections/education.html` | `.learn-row`, `.learn-card` |

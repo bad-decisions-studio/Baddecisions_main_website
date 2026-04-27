@@ -11,7 +11,7 @@ The project is intentionally simple: reusable HTML sections, page templates, one
 
 - HTML, CSS, JavaScript
 - Vercel for hosting and serverless functions
-- Upstash Redis for optional podcast caching
+- Vercel Cron + deploy hook for daily podcast rebuilds
 - Self-hosted fonts: `PP Editorial New`, `Inter`, `Azeret Mono`
 
 ## Repo layout
@@ -55,9 +55,10 @@ Main/
 │   ├── components.css        Shared component normalization
 │   └── nav.css               Shared navigation styling
 ├── js/
-│   └── main.js               Nav, scroll reveal, podcast API refresh, lazy video, mobile sliders
+│   └── main.js               Nav, scroll reveal, lazy video, mobile sliders
 ├── api/
-│   └── podcast.js            Serverless podcast endpoint
+│   └── cron/
+│       └── podcast-refresh.js Daily deploy-hook trigger for podcast rebuilds
 ├── assets/
 │   ├── bd-logo/
 │   ├── client-logos/
@@ -147,6 +148,34 @@ Default local URLs:
 
 If a section uses `{{token}}` placeholders in a partial, the build expands them from `site-content.js`.
 
+## Podcast refresh
+
+Recent podcast episodes are rendered as static HTML. The browser does not call a podcast API on page load.
+
+How it works:
+
+1. `npm run build` runs `build.js`.
+2. If `YOUTUBE_API_KEY` is available, `build.js` calls the YouTube playlist API once and replaces `podcastRecentEpisodes` in memory for that build.
+3. The generated `podcast.html` contains the latest episode cards as plain HTML.
+4. If YouTube fails or `YOUTUBE_API_KEY` is missing, the build falls back to the checked-in episode list in `data/site-content.js`.
+
+Production refresh:
+
+- `vercel.json` registers a daily cron at `0 8 * * *`.
+- The cron calls `/api/cron/podcast-refresh`.
+- The cron endpoint checks `CRON_SECRET`.
+- The endpoint triggers `VERCEL_DEPLOY_HOOK_URL`.
+- The deploy hook starts a fresh production build, which fetches YouTube once and bakes the latest podcast cards into the page.
+
+Setup required in Vercel:
+
+1. Add `YOUTUBE_API_KEY`.
+2. Add `CRON_SECRET`.
+3. Create a Vercel Deploy Hook for the production branch.
+4. Add that deploy hook URL as `VERCEL_DEPLOY_HOOK_URL`.
+
+To manually update podcast cards without waiting for cron, trigger the same deploy hook or run a production deploy. For local development without a YouTube key, edit `data/site-content.js`.
+
 ## Design system
 
 Shared styling is split intentionally:
@@ -159,15 +188,15 @@ Navigation is shared across every page from `sections/nav.html`.
 
 ## Environment variables
 
-Optional environment variables for the podcast API:
+Environment variables for podcast refresh:
 
-| Variable | Purpose |
-|---|---|
-| `YOUTUBE_API_KEY` | YouTube Data API access |
-| `KV_REST_API_URL` | Upstash Redis REST URL |
-| `KV_REST_API_TOKEN` | Upstash Redis REST token |
+| Variable | Required | Purpose |
+|---|---:|---|
+| `YOUTUBE_API_KEY` | No | YouTube Data API access during `npm run build`; falls back to checked-in content if missing |
+| `CRON_SECRET` | Yes, for cron | Protects the Vercel Cron endpoint |
+| `VERCEL_DEPLOY_HOOK_URL` | Yes, for cron | Vercel deploy hook triggered once per day by cron |
 
-If they are missing, the site still renders using static fallback content.
+If `YOUTUBE_API_KEY` is missing, the site still renders using checked-in static episode content.
 
 ## Deployment
 

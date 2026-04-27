@@ -9,6 +9,8 @@ const siteContent = require(path.join(__dirname, 'data', 'site-content.js'));
 
 const ROOT = __dirname;
 const TEMPLATES_DIR = path.join(ROOT, 'templates');
+const YT_PODCAST_PLAYLIST_ID = 'PLIn-yd4vnXbg49orM_CENby6YNGK8k-U0';
+const PODCAST_EPISODE_COUNT = 6;
 
 function escapeHtml(value) {
   return String(value)
@@ -17,6 +19,79 @@ function escapeHtml(value) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function formatPodcastDate(dateStr) {
+  if (!dateStr) return '';
+  var d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return '';
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return months[d.getMonth()] + ' ' + d.getDate();
+}
+
+function bestPodcastThumbnail(thumbnails, videoId) {
+  if (thumbnails && thumbnails.maxres && thumbnails.maxres.url) return thumbnails.maxres.url;
+  if (thumbnails && thumbnails.standard && thumbnails.standard.url) return thumbnails.standard.url;
+  if (thumbnails && thumbnails.high && thumbnails.high.url) return thumbnails.high.url;
+  if (thumbnails && thumbnails.medium && thumbnails.medium.url) return thumbnails.medium.url;
+  if (thumbnails && thumbnails.default && thumbnails.default.url) return thumbnails.default.url;
+  return videoId ? 'https://i.ytimg.com/vi/' + videoId + '/maxresdefault.jpg' : '';
+}
+
+async function refreshPodcastRecentEpisodes() {
+  var apiKey = process.env.YOUTUBE_API_KEY;
+  if (!apiKey) {
+    console.log('  Podcast: using checked-in episode data (YOUTUBE_API_KEY not set)');
+    return;
+  }
+
+  var playlistUrl =
+    'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails,status'
+    + '&playlistId=' + encodeURIComponent(YT_PODCAST_PLAYLIST_ID)
+    + '&maxResults=' + PODCAST_EPISODE_COUNT
+    + '&key=' + encodeURIComponent(apiKey);
+
+  try {
+    var response = await fetch(playlistUrl);
+    if (!response.ok) throw new Error('YouTube playlistItems returned ' + response.status);
+    var data = await response.json();
+    var rawItems = data.items || [];
+    var publicItems = rawItems.filter(function(item) {
+      var title = item && item.snippet ? item.snippet.title : '';
+      var privacy = item && item.status ? item.status.privacyStatus : '';
+      return privacy !== 'private'
+        && title
+        && title !== 'Private video'
+        && title !== 'Deleted video'
+        && item.contentDetails
+        && item.contentDetails.videoId;
+    });
+
+    publicItems.sort(function(a, b) {
+      var aDate = new Date((a.contentDetails && a.contentDetails.videoPublishedAt) || (a.snippet && a.snippet.publishedAt) || 0).getTime();
+      var bDate = new Date((b.contentDetails && b.contentDetails.videoPublishedAt) || (b.snippet && b.snippet.publishedAt) || 0).getTime();
+      return bDate - aDate;
+    });
+
+    if (publicItems.length === 0) throw new Error('YouTube returned no public podcast items');
+
+    var totalEpisodes = data.pageInfo && data.pageInfo.totalResults ? data.pageInfo.totalResults : publicItems.length;
+    siteContent.podcastRecentEpisodes = publicItems.slice(0, PODCAST_EPISODE_COUNT).map(function(item, index) {
+      var videoId = item.contentDetails.videoId;
+      var publishedAt = item.contentDetails.videoPublishedAt || item.snippet.publishedAt;
+      return {
+        href: 'https://www.youtube.com/watch?v=' + videoId,
+        image: bestPodcastThumbnail(item.snippet.thumbnails, videoId),
+        imageAlt: (item.snippet.title || 'Podcast episode') + ' thumbnail',
+        episode: 'Ep. ' + (totalEpisodes - index),
+        date: formatPodcastDate(publishedAt),
+        title: item.snippet.title || 'Untitled episode'
+      };
+    });
+    console.log('  Podcast: refreshed recent episodes from YouTube at build time');
+  } catch (err) {
+    console.warn('  Podcast: YouTube refresh failed; using checked-in episode data:', err.message);
+  }
 }
 
 function renderPodcastPlatformButtons() {
@@ -106,19 +181,68 @@ function renderLearnFreeRows() {
 }
 
 function renderPodcastRecentCards() {
-  return siteContent.podcastRecentEpisodes.map(function(episode) {
+  var episodes = siteContent.podcastRecentEpisodes.slice(0, 6);
+  if (episodes.length === 0) return '';
+
+  function episodeNumber(episode) {
+    return String(episode.episode || '').replace(/^Ep\.\s*/i, '');
+  }
+
+  function episodeDate(episode) {
+    return episode.date || '';
+  }
+
+  function episodeDuration(episode) {
+    return episode.duration || '';
+  }
+
+  var hero = episodes[0];
+  var rows = episodes.slice(1, 6).map(function(episode) {
+    var duration = episodeDuration(episode);
     return [
-      '          <a href="' + escapeHtml(episode.href) + '" target="_blank" rel="noopener noreferrer" class="pod-showcase-card">',
-      '            <div class="pod-showcase-thumb">',
+      '          <a href="' + escapeHtml(episode.href) + '" target="_blank" rel="noopener noreferrer" class="re-row">',
+      '            <div class="re-row-thumb">',
       '              <img src="' + escapeHtml(episode.image) + '" alt="' + escapeHtml(episode.imageAlt) + '" width="1280" height="720" loading="lazy">',
+      duration ? '              <span class="re-row-dur">' + escapeHtml(duration) + '</span>' : '',
       '            </div>',
-      '            <div class="pod-showcase-name">',
-      '              <span class="pod-card-meta">' + escapeHtml(episode.episode) + '</span>',
-      '              <h3>' + escapeHtml(episode.title) + '</h3>',
+      '            <div class="re-row-body">',
+      '              <div class="re-row-meta">',
+      '                <span class="ep">EP. ' + escapeHtml(episodeNumber(episode)) + '</span>',
+      episodeDate(episode) ? '                <span class="sep">&middot;</span>' : '',
+      episodeDate(episode) ? '                <span class="date">' + escapeHtml(episodeDate(episode)) + '</span>' : '',
+      '              </div>',
+      '              <h3 class="re-row-title">' + escapeHtml(episode.title) + '</h3>',
       '            </div>',
+      '            <span class="re-row-arrow" aria-hidden="true">&rarr;</span>',
       '          </a>'
-    ].join('\n');
+    ].filter(Boolean).join('\n');
   }).join('\n');
+
+  return [
+    '        <div class="re-grid">',
+    '          <a href="' + escapeHtml(hero.href) + '" target="_blank" rel="noopener noreferrer" class="re-hero">',
+    '            <div class="re-hero-thumb">',
+    '              <img src="' + escapeHtml(hero.image) + '" alt="' + escapeHtml(hero.imageAlt) + '" width="1280" height="720" loading="eager" fetchpriority="high">',
+    '            </div>',
+    '            <div class="re-hero-body">',
+    '              <div class="re-hero-row">',
+    '                <div class="re-hero-text">',
+    '                  <div class="re-hero-meta">',
+    '                    <span class="ep">EP. ' + escapeHtml(episodeNumber(hero)) + '</span>',
+    episodeDate(hero) ? '                    <span class="sep">&middot;</span>' : '',
+    episodeDate(hero) ? '                    <span class="date">' + escapeHtml(episodeDate(hero)) + '</span>' : '',
+    '                  </div>',
+    '                  <h2 class="re-hero-title">' + escapeHtml(hero.title) + '</h2>',
+    '                </div>',
+    '                <span class="re-hero-arrow" aria-hidden="true">&rarr;</span>',
+    '              </div>',
+    '            </div>',
+    '          </a>',
+    '          <div class="re-rows">',
+    rows,
+    '          </div>',
+    '        </div>'
+  ].filter(Boolean).join('\n');
 }
 
 function renderPodcastGuestTiles() {
@@ -230,14 +354,22 @@ function findTemplates(dir, prefix) {
   return results;
 }
 
-// Run
-console.log('Building BDS pages...');
-var templates = findTemplates(TEMPLATES_DIR);
+async function main() {
+  console.log('Building BDS pages...');
+  await refreshPodcastRecentEpisodes();
 
-if (templates.length === 0) {
-  console.error('No templates found in templates/');
-  process.exit(1);
+  var templates = findTemplates(TEMPLATES_DIR);
+
+  if (templates.length === 0) {
+    console.error('No templates found in templates/');
+    process.exit(1);
+  }
+
+  templates.forEach(buildPage);
+  console.log(`Done. ${templates.length} pages built.`);
 }
 
-templates.forEach(buildPage);
-console.log(`Done. ${templates.length} pages built.`);
+main().catch(function(err) {
+  console.error(err);
+  process.exit(1);
+});

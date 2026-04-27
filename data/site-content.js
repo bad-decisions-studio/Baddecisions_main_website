@@ -93,10 +93,19 @@ module.exports = {
 
   podcastRecentEpisodes: [
     {
+      href: 'https://www.youtube.com/watch?v=xRx7yKg0n-U',
+      image: 'https://i.ytimg.com/vi/xRx7yKg0n-U/maxresdefault.jpg',
+      imageAlt: 'Featured podcast episode thumbnail',
+      episode: 'Ep. 103',
+      date: 'Apr 1',
+      title: 'The BEST AI tool for Artists? 👀'
+    },
+    {
       href: 'https://www.youtube.com/watch?v=ETeL0mYJxQs',
       image: 'https://i.ytimg.com/vi/ETeL0mYJxQs/maxresdefault.jpg',
       imageAlt: 'Seedance 2.0 episode thumbnail',
       episode: 'Ep. 102',
+      date: 'Mar 29',
       title: 'Seedance 2.0 Is Finally Here but ...'
     },
     {
@@ -104,6 +113,7 @@ module.exports = {
       image: 'https://i.ytimg.com/vi/SJlxJMQkkgg/maxresdefault.jpg',
       imageAlt: 'ChatGPT super app episode thumbnail',
       episode: 'Ep. 101',
+      date: 'Mar 26',
       title: '$122 BILLION to make CHATGPT the AI Super App'
     },
     {
@@ -111,6 +121,7 @@ module.exports = {
       image: 'https://i.ytimg.com/vi/dQ66PVD3oVY/maxresdefault.jpg',
       imageAlt: 'AI visuals and music episode thumbnail',
       episode: 'Ep. 100',
+      date: 'Mar 23',
       title: 'Can we Create Quality Visuals and Music with AI?'
     },
     {
@@ -118,7 +129,16 @@ module.exports = {
       image: 'https://i.ytimg.com/vi/315kvYywUGU/maxresdefault.jpg',
       imageAlt: 'AI model leak episode thumbnail',
       episode: 'Ep. 99',
+      date: 'Mar 20',
       title: 'The Most Powerful AI MODEL Leaked'
+    },
+    {
+      href: 'https://www.youtube.com/watch?v=DxfMhTIU0Ss',
+      image: 'https://i.ytimg.com/vi/DxfMhTIU0Ss/maxresdefault.jpg',
+      imageAlt: 'Claude AI episode thumbnail',
+      episode: 'Ep. 98',
+      date: 'Mar 18',
+      title: 'Why Claude AI is becoming #1 AI APP?'
     }
   ],
 

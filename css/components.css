@@ -34,10 +34,9 @@ section {
   .testimonial-card,
 	  .founder-card,
 	  .about-video-card,
-	  .about-founder-card,
-	  .tool-card,
-	  .pod-showcase-card,
-	  .interview-card,
+		  .about-founder-card,
+		  .tool-card,
+		  .interview-card,
 	  .services-card,
 	  .mp-why-card,
 	  .career-card
@@ -48,11 +47,10 @@ section {
 
 :is(
   .card,
-	  .wwu-card,
-	  .premium-card,
-	  .ep-card,
-	  .pod-showcase-card,
-	  .interview-card,
+		  .wwu-card,
+		  .premium-card,
+		  .ep-card,
+		  .interview-card,
 	  .services-card,
 	  .mp-why-card,
 	  .career-card
@@ -70,11 +68,10 @@ section {
 }
 
 :is(
-  [data-page="home"] .pillar-panel,
   [data-page="home"] .nl-shell,
   [data-page="home"] .about-video-card--feature,
   .premium-card,
-  .pod-hero,
+  .wwu-card,
   .services-card--hero
 ) {
   border-color: color-mix(in srgb, var(--ctx-border, rgba(245, 242, 234, 0.08)) 78%, var(--ctx-label, var(--color-yellow)) 22%);
@@ -82,11 +79,10 @@ section {
 }
 
 :is(
-  [data-page="home"] .pillar-panel,
   [data-page="home"] .nl-shell,
   [data-page="home"] .about-video-card--feature,
   .premium-card,
-  .pod-hero,
+  .wwu-card,
   .services-card--hero
 ):hover {
   box-shadow: var(--shadow-card-feature-hover);
@@ -94,8 +90,7 @@ section {
 
 /* Option A media frame system: clean, readable, border-led. */
 :is(
-  .pod-showcase-thumb,
-  .learn-free-thumb,
+	  .learn-free-thumb,
   .pod-guest-image-wrap,
   .about-video-card,
   .interview-thumb
@@ -108,15 +103,13 @@ section {
 }
 
 :is(
-  .pod-showcase-thumb,
-  .learn-free-thumb,
+	  .learn-free-thumb,
   .pod-guest-image-wrap,
   .about-video-card,
   .interview-thumb
 ) img,
 :is(
-  .pod-showcase-thumb,
-  .learn-free-thumb,
+	  .learn-free-thumb,
   .pod-guest-image-wrap,
   .about-video-card,
   .interview-thumb
@@ -125,15 +118,13 @@ section {
 }
 
 :is(
-  .pod-showcase-card:hover .pod-showcase-thumb,
-  .learn-free-row:hover .learn-free-thumb,
+	  .learn-free-row:hover .learn-free-thumb,
   .pod-guest-tile:hover .pod-guest-image-wrap,
   .about-video-card:hover,
   .interview-card:hover .interview-thumb
 ) img,
 :is(
-  .pod-showcase-card:hover .pod-showcase-thumb,
-  .learn-free-row:hover .learn-free-thumb,
+	  .learn-free-row:hover .learn-free-thumb,
   .pod-guest-tile:hover .pod-guest-image-wrap,
   .about-video-card:hover,
   .interview-card:hover .interview-thumb
@@ -157,10 +148,9 @@ section {
 }
 
 :is(
-  .pillars-grid,
-  .episodes-grid,
-	  .pod-4grid,
-	  .premium-duo,
+	  .pillars-grid,
+	  .episodes-grid,
+		  .premium-duo,
 	  .wwu-grid,
 	  .interviews-grid,
 	  .services-stack-grid
@@ -265,8 +255,8 @@ section {
   justify-content: center;
 }
 
-/* Page hero rhythm: one top system for the main public pages. */
-:is(
+/* Page hero rhythm: Podcast is the reference for every non-home page. */
+body:not([data-page="home"]) :is(
   #podcast,
   #learn .learn-premium-section,
   .workhub-page,
@@ -277,7 +267,7 @@ section {
   padding-top: var(--section-space-sm);
 }
 
-:is(
+body:not([data-page="home"]) :is(
   #podcast,
   #learn .learn-premium-section,
   .workhub-page,
@@ -287,13 +277,17 @@ section {
   padding-bottom: var(--section-space-md);
 }
 
-.open-roles-header {
+body:not([data-page="home"]) #learn {
+  padding-top: 0;
+}
+
+body:not([data-page="home"]) .open-roles-header {
   padding-bottom: var(--section-space-xs);
 }
 
-:is(
-  #learn .learn-premium-section .section-header-center,
+body:not([data-page="home"]) :is(
   #podcast .podcast-page-header,
+  #learn .learn-premium-section .section-header-center,
   .workhub-page .workhub-hero,
   .services-section > .container > .section-header-center,
   .open-roles-header .section-header-center,
@@ -306,9 +300,7 @@ section {
   gap: 0;
   max-width: 920px;
   padding: 0;
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom: var(--section-header-gap);
+  margin: 0 auto var(--section-header-gap);
   text-align: center;
 }
 
@@ -320,38 +312,35 @@ section {
   padding-top: 0;
 }
 
-:is(
-  #learn .learn-premium-section .section-label,
+body:not([data-page="home"]) :is(
   #podcast .podcast-page-header .section-label,
+  #learn .learn-premium-section .section-label,
   .workhub-page .workhub-hero .section-label,
   .services-section > .container > .section-header-center .section-label,
   .open-roles-header .section-header-center .section-label,
   .mp-hero-copy .section-label
 ) {
   width: 100%;
-  margin-bottom: 18px;
+  margin: 0 0 18px;
   text-align: center;
 }
 
-:is(
-  #learn .learn-premium-section .heading-hero,
+body:not([data-page="home"]) :is(
   #podcast .podcast-page-header .heading-hero,
+  #learn .learn-premium-section .heading-hero,
   .workhub-page .workhub-hero-title,
   .services-section .heading-hero,
   .open-roles-header .heading-hero,
   .mp-h1
 ) {
   max-width: 980px;
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: 24px;
-  margin-left: auto;
+  margin: 0 auto 24px;
   font-size: clamp(44px, 5.4vw, 72px);
   line-height: 1.04;
   text-wrap: balance;
 }
 
-:is(
+body:not([data-page="home"]) :is(
   .podcast-page-copy,
   .workhub-page .workhub-hero-copy,
   .services-section > .container > .section-header-center .body-text,
@@ -359,9 +348,8 @@ section {
   .mp-hero-sub
 ) {
   max-width: 660px;
-  margin-right: auto;
-  margin-bottom: 0;
-  margin-left: auto;
+  margin: 18px auto 0;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -395,7 +383,7 @@ section {
     width: 100%;
   }
 
-  :is(
+  body:not([data-page="home"]) :is(
     #podcast,
     #learn .learn-premium-section,
     .workhub-page,
@@ -406,7 +394,7 @@ section {
     padding-top: var(--section-space-sm);
   }
 
-  :is(
+  body:not([data-page="home"]) :is(
     #podcast,
     #learn .learn-premium-section,
     .workhub-page,
@@ -416,7 +404,11 @@ section {
     padding-bottom: var(--section-space-sm);
   }
 
-  :is(
+  body:not([data-page="home"]) #learn {
+    padding-top: 0;
+  }
+
+  body:not([data-page="home"]) :is(
     #learn .learn-premium-section .section-header-center,
     #podcast .podcast-page-header,
     .workhub-page .workhub-hero,
@@ -431,7 +423,7 @@ section {
     margin-top: 0;
   }
 
-  :is(
+  body:not([data-page="home"]) :is(
     #learn .learn-premium-section .heading-hero,
     #podcast .podcast-page-header .heading-hero,
     .workhub-page .workhub-hero-title,
@@ -474,11 +466,10 @@ section {
     line-height: 1.14;
   }
 
-  .label,
-  .section-label,
-  .pod-section-label,
-  .pod-card-meta,
-  .services-card__num,
+	  .label,
+	  .section-label,
+	  .pod-section-label,
+	  .services-card__num,
   .services-card__eyebrow,
   .mp-why-eyebrow,
   .nl-eyebrow-text {
@@ -537,11 +528,10 @@ section {
     line-height: 1.16;
   }
 
-  .label,
-  .section-label,
-  .pod-section-label,
-  .pod-card-meta,
-  .services-card__num,
+	  .label,
+	  .section-label,
+	  .pod-section-label,
+	  .services-card__num,
   .services-card__eyebrow,
   .mp-why-eyebrow,
   .nl-eyebrow-text {
@@ -600,12 +590,8 @@ section {
     text-wrap: balance;
   }
 
-  :is(.pillars-grid, .premium-duo, .wwu-grid, .services-bento, .pod-4grid, .services-stack-grid) {
+  :is(.pillars-grid, .premium-duo, .wwu-grid, .services-bento, .services-stack-grid) {
     gap: 12px;
-  }
-
-  .pillar-panel-content {
-    padding: 20px;
   }
 
   .newsletter {
@@ -648,18 +634,6 @@ section {
     padding: 0;
   }
 
-  .pod-hero {
-    margin-bottom: 20px;
-  }
-
-  .pod-hero-content {
-    padding: 12px 0 0;
-  }
-
-  .pod-hero-content h2 {
-    margin: 0;
-  }
-
   .pod-guest-grid {
     gap: 16px;
   }
@@ -689,22 +663,8 @@ section {
   }
 
   .premium-card {
-    min-height: 340px;
+    min-height: 360px;
     padding: 24px;
-  }
-
-  .premium-card-logo {
-    height: 60px;
-    margin-bottom: 16px;
-  }
-
-  .premium-card-ai-icon {
-    font-size: 42px;
-    margin-bottom: 16px;
-  }
-
-  .premium-card-stats {
-    margin-bottom: 18px;
   }
 
   .wwu-card {
@@ -713,7 +673,7 @@ section {
   }
 
   .wwu-card-title {
-    font-size: clamp(32px, 9vw, 44px);
+    font-size: clamp(28px, 3.4vw, 36px);
   }
 
   .wwu-card-tags {
@@ -782,11 +742,13 @@ section {
   }
 
   .premium-card {
-    min-height: 320px;
+    min-height: 330px;
     padding: 22px 18px;
   }
 
-  .premium-card h2 {
+  .premium-card h2,
+  .premium-card h3,
+  .wwu-card-title {
     font-size: clamp(25px, 7vw, 32px);
   }
 

@@ -188,81 +188,6 @@ function initStaggeredReveal() {
   });
 }
 
-function initPodcastData() {
-  var podSection = document.getElementById('podcast');
-  // Mark loading state — CSS / debugging hook. Static HTML always shows
-  // as fallback content if fetch fails, so users see episodes either way.
-  if (podSection) podSection.setAttribute('data-podcast-state', 'loading');
-
-  fetch('/api/podcast').then(function(res) {
-    if (!res.ok) throw new Error('API ' + res.status);
-    return res.json();
-  }).then(function(data) {
-    if (!data.episodes || data.episodes.length === 0) {
-      if (podSection) podSection.setAttribute('data-podcast-state', 'empty');
-      return;
-    }
-
-    var featuredEpisode = data.episodes[0];
-    var podHero = document.querySelector('.pod-hero');
-
-    if (podHero) {
-      if (featuredEpisode.youtubeUrl) {
-        podHero.href = featuredEpisode.youtubeUrl;
-      }
-
-      var heroBg = podHero.querySelector('.pod-hero-bg');
-      if (heroBg && featuredEpisode.artworkUrl) {
-        heroBg.src = featuredEpisode.artworkUrl;
-        heroBg.alt = (featuredEpisode.title || 'Featured podcast episode') + ' thumbnail';
-      }
-
-      var badgeText = podHero.querySelector('.playlist-badge-text')
-        || podHero.querySelector('.playlist-badge');
-      if (badgeText) {
-        badgeText.textContent = featuredEpisode.episodeNumber
-          ? 'Latest \u00b7 Ep. ' + featuredEpisode.episodeNumber
-          : 'Latest';
-      }
-
-      var heroTitle = podHero.querySelector('h2');
-      if (heroTitle) {
-        heroTitle.textContent = featuredEpisode.title || '';
-      }
-    }
-
-    var cards = document.querySelectorAll('.pod-4grid .pod-showcase-card');
-    for (var i = 0; i < Math.min(cards.length, data.episodes.length - 1); i++) {
-      var episode = data.episodes[i + 1];
-
-      if (episode.youtubeUrl) {
-        cards[i].href = episode.youtubeUrl;
-      }
-
-      var cardImg = cards[i].querySelector('img');
-      if (cardImg && episode.artworkUrl) {
-        cardImg.src = episode.artworkUrl;
-        cardImg.alt = (episode.title || 'Podcast episode') + ' thumbnail';
-      }
-
-      var cardTitle = cards[i].querySelector('.pod-showcase-name h3, .pod-showcase-name h4');
-      if (cardTitle) {
-        cardTitle.textContent = episode.title || '';
-      }
-
-      var cardMeta = cards[i].querySelector('.pod-card-meta');
-      if (cardMeta) {
-        cardMeta.textContent = episode.episodeNumber ? 'Ep. ' + episode.episodeNumber : '';
-      }
-    }
-
-    if (podSection) podSection.setAttribute('data-podcast-state', 'live');
-  }).catch(function(err) {
-    console.warn('Podcast refresh skipped (showing static fallback episodes):', err.message);
-    if (podSection) podSection.setAttribute('data-podcast-state', 'error');
-  });
-}
-
 function initMobileSwipeTracks() {
   var tracks = document.querySelectorAll('.mobile-swipe-track[data-mobile-slider]');
   if (tracks.length === 0) return;
@@ -359,7 +284,6 @@ function initBDS() {
   initVideoCycling();
   initLazyVideos();
   initStaggeredReveal();
-  initPodcastData();
 }
 
 if (document.readyState === 'loading') {

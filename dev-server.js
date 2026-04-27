@@ -138,8 +138,7 @@ server.listen(PORT, () => {
   console.log('    http://localhost:' + PORT + '/education');
   console.log('    http://localhost:' + PORT + '/work-with-us/services');
   console.log('');
-  console.log('  Note: /api/podcast is a Vercel serverless function and will 404 here.');
-  console.log('  The podcast page falls back to hardcoded episodes — that is expected.');
+  console.log('  Note: podcast episodes are baked into static HTML at build time.');
   console.log('');
   console.log('  Ctrl+C to stop.');
   console.log('');
