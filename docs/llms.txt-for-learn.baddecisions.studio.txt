@@ -1,37 +1,106 @@
-# Ultimate Unreal Engine Program — Bad Decisions Studio
+# The Ultimate Unreal Engine Course — Bad Decisions Studio
 
-> A premium step-by-step program teaching Unreal Engine 5 from beginner to portfolio-ready. Built by Bad Decisions Studio for creators, artists, and studios.
+> Master Unreal Engine and build cinematic shots in 14 days. A step-by-step program teaching the most powerful 3D software, designed for beginners and pros who want portfolio-ready results. Built by Bad Decisions Studio.
 
-The Ultimate Unreal Engine Program is the flagship Unreal Engine education product from Bad Decisions Studio. It covers virtual production, MetaHuman characters, environment design at 4K, advanced lighting, and cinematic storytelling. 55 modules, 20+ hours of content, used by 1,500+ students across 80+ countries.
+No 3D experience required. The Ultimate Unreal Engine Course is the flagship Unreal Engine 5 program from Bad Decisions Studio — 22 modules and 20+ hours of practical lessons that take a complete beginner from installation to a finished cinematic project. Students build a full Japanese-castle short film: the Osaka Castle Courtyard, the Grand Hall of Osaka Castle, and a cinematic title sequence, populated with four MetaHuman characters (Haruki, Guard, Ninja, and Getsuro).
+
+Created by Faraz and Farhad Shababi, who have been officially featured by Epic Games, host the #1 podcast in the 3D space, and have taught millions of artists through their YouTube channel.
 
 ## Pages
 
-- [Program homepage](https://learn.baddecisions.studio): Curriculum, modules, pricing, enrollment
+- [Course homepage](https://learn.baddecisions.studio): Curriculum, modules, pricing, enrollment
 - [Student Academy](https://academy.baddecisions.studio): LMS for enrolled students (login)
 
-## Curriculum highlights
+## Curriculum (22 modules · 20+ hours · 55+ practical lessons)
 
-- Virtual production fundamentals
-- MetaHuman creation and animation
-- Environment building at production-grade quality (4K)
-- Advanced lighting workflows
-- Cinematic storytelling — full samurai story set in 1514 Osaka
-- 55 modules · 20+ hours · self-paced
-- 1,500+ students enrolled across 80+ countries
+- **Module 1 — Getting Started**: Installation, interface navigation, project setup, and visual story planning
+- **Module 2 — Modeling Tools**: Modeling basics, advanced tools, shaping objects with precision
+- **Module 3 — Scene Building**: Importing assets, modular environment building, layout tools
+- **Module 4 — Materials & Textures**: Basics, advanced techniques, AI texture workflows
+- **Module 5 — Lighting**: Basic and advanced lighting, glowing surfaces, cinematic mood
+- **Module 6 — MetaHuman**: Creating characters, clothing and props, animation retargeting, AI face animation
+- **Module 7 — Animation**: Animating characters, timing control, syncing with environment
+- **Module 8 — Motion Design Tools**: Animated materials and visual effects
+- **Module 9 — Cloth Simulation**: Dynamic clothing and accessories with Unreal's built-in tools
+- **Module 10 — Optimization**: Nanite and performance workflows for efficient cinematic worlds
+- **Module 11 — Blueprints**: Interactive actors and reusable logic
+- **Module 12 — Sequencer**: Animating scenes, layering actions, Master Sequencer
+- **Module 13 — Cinematic Camera Tools**: Rig rails, cranes, cinematic framing
+- **Module 14 — Virtual Camera**: Use an iPhone or Android phone to control cameras and record actions in real time
+- **Module 15 — Decals**: Detail work for photorealism
+- **Module 16 — Foliage**: Plant thousands of trees and grass with the Foliage tool
+- **Module 17 — Render Settings**: Photorealistic exports with Lumen
+- **Module 18 — HDRI**: Realistic skies and image-based environments
+- **Module 19 — Niagara Particles**: Particle systems and FX with Niagara
+- **Module 20 — AI Workflows**: Latest AI models for animation, texture, and 3D model generation
+- **Module 21 — Chaos Destruction**: Real-time shattering, breaking, and exploding
+- **Module 22 — Title Sequence**: Crafted cinematic title sequence
 
-## About the studio
+## What you build
 
-Bad Decisions Studio is a creative technology studio focused on AI, real-time 3D, and content. Run by Farhad Shababi and Faraz Shababi and a team from Vancouver and Dubai. The studio operates across three pillars: Content (podcast + videos), Education (premium programs and free tutorials), and Services (consulting, AI-enabled solutions, training, interactive experiences, content strategy).
+- **The Osaka Castle Courtyard** — full castle exterior with walls, trees, fog, gates. Skills: World Building, Niagara Particles, MetaHuman.
+- **The Grand Hall of Osaka Castle** — main hall designed from scratch, modeled, textured, lit, with three MetaHuman characters in scene. Skills: Modeling, Cloth Simulation, MetaHuman.
+- **The Cinematic Title Sequence** — dramatic ending title sequence. Skills: Motion Graphics, Chaos Destruction.
+
+## Characters included (free for commercial use)
+
+- Haruki (陽輝)
+- Guard (警備)
+- Ninja (忍者)
+- Getsuro (月狼)
+
+All fully rigged MetaHuman characters with high-quality 4K textures and animations included.
+
+## Pricing
+
+- **Full Access — $897** (one payment, or two-payment option). Lifetime access to all modules, $5,000+ premium 3D assets pack, $4,500 custom cinematic music pack, private Discord with 24/7 support, $3,000+ cash prize for 3D challenges, quarterly livestreams and Q&A, official certificate of completion.
+- **Director Access — $1,997** (one payment, or two-payment option). Everything in Full Access, plus a 60-minute personal 1:1 coaching session with the instructors, review of the final cinematic with feedback, and a Course Wall of Fame feature.
+
+## Bonuses (included with enrollment)
+
+- **$5,000+ Premium 3D Assets Pack** — samurai, ninja, weapons, the Osaka Castle, and more. Free for personal or commercial use, no extra license required.
+- **$4,500 Custom Cinematic Music Pack** — exclusive soundtrack from a professional music producer, plus authentic Japanese voice-over dialogue.
+- **Private Discord Community with 24/7 support** — global network of 3D artists. 99% of questions answered within 24 hours.
+- **$3,000+ Cash Prize for 3D Challenges** — exclusive private 3D challenges with cash prizes ($1,500 already paid out in the first challenge).
+- **Quarterly Livestreams and Q&A** — strategies on personal brand, landing high-value clients, and using AI tools, with direct access to the instructors.
+- **Official Certificate of Completion** — graduate with a Bad Decisions Studio certificate.
+
+## Stats
+
+- 1,500+ artists enrolled
+- 750 students currently active
+- 80+ countries reached
+- 20+ hours of lessons with subtitles in 5+ languages
+- 55+ practical lessons
+- 7.9M+ video views (instructor channel)
+- 124K+ YouTube subscribers
+- 110K+ Instagram followers
+
+## Testimonials
+
+- **NEOLIPTUS — Creative Director and VFX Artist**: "It honestly took some courage to switch my main 3D software after years of using Cinema 4D. It was a pretty scary move at first, but when I discovered Bad Decision Studio's tutorials on YouTube, I was convinced it was time to dive in. Their energy is incredible, and their motivation is truly contagious!"
+- **Jason Key — VFX Artist, Evangelist at JangaFX**: "I've used Unreal Engine in production for over 15 years, and out of curiosity I watched all 19 of their Star Wars UE5 beginner tutorials from end to end. It's some of the best training content I've seen, and I even learned some new things I wasn't aware of. Faraz and Farhad are a beacon of light in this tough industry right now. Their positive energy, humor, and enthusiasm are infectious."
+- **Balint Szeoke — Head of Digital, Kraftwerk Design & Production**: "When I first discovered Bad Decisions Studio, we were right in the middle of a project facing some challenges that felt nearly impossible to overcome. While browsing YouTube, I stumbled upon one of their tutorials — and it was a game-changer. That one video sparked an idea that helped my 3D team crack the issue, and we were able to deliver a successful project to our client."
+
+## Why Unreal Engine
+
+Used in: Virtual Production, Film & Animation, Gaming, Fortnite, Architecture, Automotive, Live Shows, Commercials.
+
+Advanced features covered in the course: AI Workflow, Animation, Chaos Physics, Motion Design, Niagara Particles, MetaHuman, Optimisation, Virtual Production, World Building.
+
+## About Bad Decisions Studio
+
+Bad Decisions Studio is a creative technology studio focused on AI, real-time 3D, and content. Run by Farhad Shababi and Faraz Shababi and a team from Vancouver and Dubai. The studio operates across three pillars: Content (a podcast, long-form educational videos, and short-form videos), Education (premium programs and free tutorials), and Services (consulting, AI-enabled solutions, training, interactive experiences, content strategy). Officially featured by Epic Games. Hosts of the #1 podcast in the 3D space.
 
 ## Connected sites
 
 - [baddecisions.studio](https://www.baddecisions.studio): Studio homepage (`llms.txt` available)
-- [ai.baddecisions.studio](https://ai.baddecisions.studio): Sister program — Ultimate AI for Creatives (`llms.txt` available)
+- [ai.baddecisions.studio](https://ai.baddecisions.studio): Sister program — The Ultimate AI Program (`llms.txt` available)
 - [academy.baddecisions.studio](https://academy.baddecisions.studio): Student LMS
 
 ## Free learning
 
-- [YouTube channel](https://www.youtube.com/@badxstudio): Free Unreal Engine tutorials, including the Beginner Tutorial 2026 challenge, the Dune shot-by-shot recreation, MetaHuman customization, and Gaussian Splatting
+- [YouTube channel](https://www.youtube.com/@badxstudio): Free Unreal Engine tutorials including the Star Wars UE5 beginner series, Beginner Tutorial 2026 challenge, Dune shot-by-shot recreation, MetaHuman customization, and 3D Gaussian Splatting
 
 ## Optional
 

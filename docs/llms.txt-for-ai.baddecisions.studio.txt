@@ -1,29 +1,100 @@
-# Ultimate AI for Creatives Program — Bad Decisions Studio
+# The Ultimate AI Program — Bad Decisions Studio
 
-> A hands-on program teaching AI workflows, tools, and playbooks for creators, artists, and operators. Built by Bad Decisions Studio.
+> Become the #1 option in your industry. Hands-on AI workflows, curated tool picks, and step-by-step playbooks to help you save time, win clients, and actually get ahead. Built by Bad Decisions Studio.
 
-The Ultimate AI for Creatives Program is the flagship AI education product from Bad Decisions Studio. It teaches practical AI workflows, curated tool picks, and step-by-step playbooks designed to help creators save time, win clients, and build with modern AI tooling.
+The Ultimate AI Program is the flagship AI education product from Bad Decisions Studio. It teaches the AI workflows that get you hired and paid — practical playbooks and curated tool picks designed to help anyone (no technical background required) become irreplaceable. The thesis: you're not behind because you're not smart enough; you're behind because nobody gave you a clear, practical place to start. There are a thousand tools, a million tutorials, and zero roadmaps — this is the roadmap.
+
+The program is structured around three pillars: **Foundations** (how to think), **Toolbox** (how to use), and **Playbooks** (how to build).
 
 ## Pages
 
-- [Program homepage](https://ai.baddecisions.studio): Curriculum, modules, pricing, enrollment
+- [Program homepage](https://ai.baddecisions.studio): Curriculum, pricing, enrollment
 - [Student Academy](https://academy.baddecisions.studio): LMS for enrolled students (login)
 
-## What's covered
+## Curriculum
 
-- Foundation: how modern AI works for creative work
-- Toolbox: curated set of AI tools for image, video, audio, copy, and automation (ChatGPT, Claude, Gemini, Midjourney, Runway, ElevenLabs, HeyGen, Kling, and others)
-- Playbooks: step-by-step recipes for common creative jobs (brand work, video edits, ideation, automation)
-- Workflows that combine AI with traditional creative tools (Photoshop, After Effects, Premiere Pro, Unreal Engine)
+### Foundations — Learn how to think (7 chapters)
 
-## About the studio
+Master the core principles that matter across all tools, so you can adapt, think deeper, and stay ahead no matter how fast AI changes.
 
-Bad Decisions Studio is a creative technology studio focused on AI, real-time 3D, and content. Run by Farhad Shababi and Faraz Shababi and a team from Vancouver and Dubai. The studio operates across three pillars: Content (podcast + videos), Education (premium programs and free tutorials), and Services (consulting, AI-enabled solutions, training, interactive experiences, content strategy).
+1. How LLMs actually work
+2. How neural networks work
+3. AI Explained
+4. The anatomy of a good prompt
+5. Choosing the right AI tool
+6. How AI generates images and video
+7. How AI is changing pre-production
+
+### Toolbox — Learn how to use (8 chapters)
+
+We test hundreds of AI tools and bring you the best ones, so you know what is worth using and what is not.
+
+1. ChatGPT
+2. Claude
+3. ElevenLabs
+4. Freepik
+5. Gemini
+6. HeyGen
+7. Higgsfield
+8. Suno
+
+### Playbooks — Learn how to build (5 chapters)
+
+Clear end-to-end workflows and projects you can use to get hired, win clients, and create real value.
+
+1. Workflow & brief
+2. Stack & tooling
+3. Creative execution
+4. Review & iterate
+5. Final delivery
+
+## Pricing
+
+- **Membership — $69 / month** (billed monthly). Cancel anytime. No risk.
+- **Annual option** — 2 months free.
+
+Both tiers include: live sessions (feedback & Q&A), regularly added new modules, private community access, and full access to all materials.
+
+## Why join
+
+- **Always Up to Date** — AI changes fast. Content updates regularly so you're always learning what matters now.
+- **Beginner to Advanced** — No experience needed. Takes you from complete beginner to confident AI user.
+- **Challenges & Giveaways** — Stay engaged, apply what you learn, and win prizes.
+- **Everything in one place** — From theory to practical projects, understand AI at a deep level.
+- **Live Sessions and Private Community** — Get help, ask questions, stay consistent with people on the same path.
+- **Save Money on AI Tools** — Access student credits and partner offers on selected AI tools.
+
+## AI tools and platforms covered
+
+ChatGPT (OpenAI), Claude (Anthropic), ElevenLabs, Freepik, Gemini (Google), HeyGen, Higgsfield, Suno, Midjourney, Runway, Luma Dream Machine, Kling, Seedance, Cursor, Figma Weave, Grok (xAI).
+
+## Stats
+
+- 2,000+ on the AI program waitlist
+- 1,500+ students already trained through the studio's existing programs
+- 540,000+ community members across platforms
+- 276,000+ Instagram followers
+- 266,000+ YouTube subscribers
+
+## About Bad Decisions Studio
+
+Bad Decisions is a creative and media studio that delivers projects across the US, Canada, Europe, and the Middle East. Studio content has reached millions and led to partnerships with brands like Dell, Epic Games, and Autodesk. The team has been building in this space long before AI entered the picture — when it did, it didn't replace what they do, it supercharged it. The studio integrated AI into existing workflows and saw what it could do for speed, quality, and profitability. The result: more clients, better work. The studio has already trained 1,500+ students through its Unreal Engine program and built a community of 540,000+ followers. Now applying the same approach to AI.
+
+Run by Farhad Shababi and Faraz Shababi and a team from Vancouver and Dubai. The studio operates across three pillars: Content (a podcast, long-form educational videos, and short-form videos), Education (premium programs and free tutorials), and Services (consulting, AI-enabled solutions, training, interactive experiences, content strategy).
+
+## Featured industry quote
+
+> "You're not going to lose your job to AI, but you're going to lose your job to someone who uses AI."
+> — Jensen Huang, CEO, Nvidia
+
+## Who it's for
+
+Beginners with no prior AI knowledge. Creative professionals. Service providers who want to win more clients. People competing in their industry who want to increase profitability and speed. No technical background required.
 
 ## Connected sites
 
 - [baddecisions.studio](https://www.baddecisions.studio): Studio homepage (`llms.txt` available)
-- [learn.baddecisions.studio](https://learn.baddecisions.studio): Sister program — Ultimate Unreal Engine Program (`llms.txt` available)
+- [learn.baddecisions.studio](https://learn.baddecisions.studio): Sister program — The Ultimate Unreal Engine Course (`llms.txt` available)
 - [academy.baddecisions.studio](https://academy.baddecisions.studio): Student LMS
 
 ## Free learning
