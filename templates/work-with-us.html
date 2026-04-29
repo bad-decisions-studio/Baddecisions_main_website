@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
+  {{gsc_verification_meta}}
   <meta property="og:type" content="website">
   <meta property="og:title" content="Work With Us | Bad Decisions Studio">
   <meta property="og:description" content="Start a project, explore media partnerships, or join the team building content, education, and execution in the age of AI.">
@@ -28,6 +29,16 @@
   <link rel="preload" href="/assets/fonts-web/inter-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts-web/azeret-mono-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css" fetchpriority="high" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",          "item": "https://www.baddecisions.studio/" },
+      { "@type": "ListItem", "position": 2, "name": "Work With Us",  "item": "https://www.baddecisions.studio/work-with-us" }
+    ]
+  }
+  </script>
 </head>
 <body data-page="work-with-us">
   <div data-include="/sections/nav.html"></div>

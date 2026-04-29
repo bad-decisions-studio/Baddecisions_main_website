@@ -211,6 +211,7 @@ Environment variables for podcast refresh:
 | `YOUTUBE_API_KEY` | No | YouTube Data API access during `npm run build`; falls back to checked-in content if missing |
 | `CRON_SECRET` | Yes, for cron | Protects the Vercel Cron endpoint (timing-safe compared) |
 | `VERCEL_DEPLOY_HOOK_URL` | Yes, for cron | Vercel deploy hook triggered once per day by cron |
+| `GSC_VERIFICATION` | No | Google Search Console site-verification token. If set, build injects `<meta name="google-site-verification">` into every page. |
 | `DEBUG` | No | If set, `dev-server.js` logs every request. Off by default. |
 | `PORT` | No | Override `dev-server.js` port (default 8000). |
 
@@ -235,7 +236,9 @@ Vercel runs `npm run build` through `vercel.json`.
 
 These are documented punch-list items that don't block launch but should land soon:
 
+- **Verify the site in Google Search Console** — go to [search.google.com/search-console](https://search.google.com/search-console), add the property `https://www.baddecisions.studio`, pick the "HTML tag" verification method, copy the token (the `content="..."` value), and set it as the `GSC_VERIFICATION` env var in Vercel. Next deploy will inject the meta tag on every page; click "Verify" in Search Console. Then submit `https://www.baddecisions.studio/sitemap.xml` under Sitemaps.
 - **Privacy policy + footer link** — newsletter form sends name + email to Klaviyo, so GDPR/Dubai PDPL exposure exists. Add a `/privacy` page (Termly or self-drafted) and a one-line consent disclosure under the form.
 - **Cookie banner** — only required once analytics with cookies is wired (e.g., GTM/GA). Vercel Analytics and Plausible are cookie-free and do not need a banner.
 - **Tighten CSP** — `vercel.json` currently allows `'unsafe-inline'` for `script-src` and `style-src`. The newsletter inline script is already extracted; remaining work is to move the inline `<style>` block out of `sections/work-with-us/media-partnerships.html` and then drop `'unsafe-inline'` from both directives.
 - **Lighthouse pass** — once live, run `https://pagespeed.web.dev/?url=https://www.baddecisions.studio` on each page and triage anything below 90.
+- **Mobile hero-video variant** — ship a 480p ~600 KB version under `<source media="(max-width: 768px)">` to lift mobile LCP on the home page.

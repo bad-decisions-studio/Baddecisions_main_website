@@ -267,6 +267,12 @@ function renderPodcastGuestTiles() {
 }
 
 function applyDataReplacements(html) {
+  // Job posting dates — today + today+90 days, ISO yyyy-mm-dd
+  var today = new Date();
+  var validThrough = new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000);
+  var jobPostedDate = today.toISOString().slice(0, 10);
+  var jobValidThrough = validThrough.toISOString().slice(0, 10);
+
   return html
     .replace(/\{\{learn_free_rows\}\}/g, renderLearnFreeRows())
     .replace(/\{\{podcast_recent_cards\}\}/g, renderPodcastRecentCards())
@@ -275,7 +281,19 @@ function applyDataReplacements(html) {
     .replace(/\{\{footer_podcast_links\}\}/g, renderFooterPodcastLinks())
     .replace(/\{\{footer_social_buttons\}\}/g, renderFooterSocialButtons())
     .replace(/\{\{find_us_icons\}\}/g, renderFindUsIcons())
-    .replace(/\{\{footer_year\}\}/g, String(new Date().getFullYear()));
+    .replace(/\{\{footer_year\}\}/g, String(new Date().getFullYear()))
+    .replace(/\{\{job_posted_date\}\}/g, jobPostedDate)
+    .replace(/\{\{job_valid_through\}\}/g, jobValidThrough)
+    .replace(/\{\{gsc_verification_meta\}\}/g, renderGscVerificationMeta());
+}
+
+// Google Search Console site verification meta tag.
+// If GSC_VERIFICATION env var is set, emit the meta tag; otherwise emit nothing.
+// Get the value from Search Console: https://search.google.com/search-console → "HTML tag" verification method.
+function renderGscVerificationMeta() {
+  var token = process.env.GSC_VERIFICATION;
+  if (!token) return '';
+  return '<meta name="google-site-verification" content="' + escapeHtml(token) + '">';
 }
 
 // Regex to match <div data-include="/sections/xyz.html"></div>
